@@ -18,6 +18,7 @@
 $ git clone https://github.com/icecity96/HIT-Friends-Social-Analysis
 ~~~
 再用`Eclipse`打开此项目即可。
+
 **Windows**用户点击[此处](https://github.com/icecity96/HIT-Friends-Social-Analysis/archive/master.zip)下载项目压缩包后解压，再用`Eclipse`打开项目即可。
 
 ##Contribution
@@ -27,5 +28,7 @@ $ git clone https://github.com/icecity96/HIT-Friends-Social-Analysis
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
+NOTE:提交的代码请确保遵循谷歌开源代码风格！！！！
+
 ##License
-[GPLv3](License)
+[GPLv3](License.md)
