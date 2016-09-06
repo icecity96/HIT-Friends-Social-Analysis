@@ -1,5 +1,5 @@
 one line to give the program's name and a brief description.
-Copyright © 2016 yourname
+Copyright © 2016 @icecity96,@vachester,@SparklyYS
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
