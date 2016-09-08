@@ -1,9 +1,3 @@
-##开发环境
-1. Eclipse-neno(java 1.8,java EE)
-3. [maven](http://stackoverflow.com/questions/8620127/maven-in-eclipse-step-by-step-installation)
-4. MySQL
-5. [Git](https://www.codecademy.com/zh/learn/learn-git)
-=======
 #HIT-Friends-Social-Analysis
 ![Author](https://img.shields.io/badge/author-@icecity96,@vachester,@SparklyYS,@XiaoGA0914-blue.svg?style=flat) 
 [![Platform](https://img.shields.io/badge/platform-Linux,%20OS%20X,%20Windows-green.svg?style=flat)](https://github.com/icecity96/HIT-Friends-Social-Analysis)
