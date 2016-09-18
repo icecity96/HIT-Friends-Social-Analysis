@@ -48,6 +48,6 @@
 	</dependency>
   </dependencies>
   <build>
-    <finalName>icecity</finalName>
+    <finalName>HITFSA</finalName>
   </build>
 </project>
