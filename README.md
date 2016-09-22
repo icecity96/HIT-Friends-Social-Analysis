@@ -1,5 +1,5 @@
 #HIT-Friends-Social-Analysis
-![Author](https://img.shields.io/badge/author-@icecity96,@vachester,@SparklyYS,@XiaoGA0914-blue.svg?style=flat) 
+![Author](https://img.shields.io/badge/author-膜法师-blue.svg?style=flat) 
 [![Platform](https://img.shields.io/badge/platform-Linux,%20OS%20X,%20Windows-green.svg?style=flat)](https://github.com/icecity96/HIT-Friends-Social-Analysis)
 
 随着社交网络服务增多。同一个用户可能活跃在多个社交平台上，在不同社交平台拥有不同的社交圈。同样其社交关注对象可能活跃在不同平台。这样使得全面关注一个对象变得繁琐。**HIT-Friends-Social-Analysis**的出现，旨在提供一个统一的管理平台。将用户从繁琐的社交平台中解放出来，让用户能够更好的关注想要关注的对象的动态。
