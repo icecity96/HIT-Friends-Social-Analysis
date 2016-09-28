@@ -13,7 +13,7 @@ public class PassWord {
 	 * @return cyphertext
 	 * @throws UnsupportedEncodingException 
 	 */
-	public static String md5encode(String plaintext) throws UnsupportedEncodingException {
+	public static String md5encode(String plaintext) {
 		String cyphertext = null;
 		try {
 			MessageDigest messageDigest = MessageDigest.getInstance("MD5");
