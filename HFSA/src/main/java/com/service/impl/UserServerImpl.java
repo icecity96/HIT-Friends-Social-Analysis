@@ -1,6 +1,8 @@
 package com.service.impl;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -39,8 +41,19 @@ public class UserServerImpl implements UserServer {
 	}
 
 	@Override
+	/**
+	 * 注册成功返回user.id，密码不合法返回－1，用户已存在返回－2
+	 */
 	public int register(User user) {
+		//密码是否合法，用户是否存在
+		if (!PassWord.isLegitimate(user.getPassword())) {
+			return -1;
+		}
+		if (userIsExist(user)) {
+			return -2;
+		}
 		Date now = new Date();
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
 		user.setPassword(PassWord.md5encode(user.getPassword()));
 		user.setHeadImg(PassWord.md5encode(user.getEmail()));
 		user.setCreateTime(now);
