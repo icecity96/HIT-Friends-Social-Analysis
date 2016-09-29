@@ -10,7 +10,6 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.po.User;
 import com.service.UserServer;
@@ -58,7 +57,7 @@ public class UserController {
 		} else {
 			rsUser.setPassword("default");
 			request.setAttribute("msg", "成功登录");
-			session.setAttribute("user", rsUser);
+			session.setAttribute("userLogin", rsUser);
 		}
 		return "success";
 	}
