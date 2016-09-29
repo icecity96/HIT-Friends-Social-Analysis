@@ -16,7 +16,7 @@
         if(window.top!==window.self){window.top.location=window.location};
     </script>
 </head>
-<body>
+<body class="login">
 	<div class="container">
     	<div class="row">
 			<div class="col-md-6 col-md-offset-3">
@@ -24,10 +24,10 @@
 					<div class="panel-heading">
 						<div class="row">
 							<div class="col-xs-6">
-								<a href="#" class="active" id="login-form-link">Login</a>
+								<a href="#" class="active" id="login-form-link">Sign in</a>
 							</div>
 							<div class="col-xs-6">
-								<a href="#" id="register-form-link">Register</a>
+								<a href="#" id="register-form-link">Sign up</a>
 							</div>
 						</div>
 						<hr>
@@ -54,7 +54,7 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+												<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Sign In">
 											</div>
 										</div>
 									</div>
@@ -84,7 +84,7 @@
 									<div class="form-group">
 										<div class="row">
 											<div class="col-sm-6 col-sm-offset-3">
-												<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+												<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Sign up">
 											</div>
 										</div>
 									</div>
@@ -97,7 +97,7 @@
 		</div>
 		<div class="row">
 			<div class="text-center">
-				&copy; 2015 All Rights Reserved. H+
+				&copy; All Rights Reserved. HFSA
 		    </div>
 		</div>
 	</div>
