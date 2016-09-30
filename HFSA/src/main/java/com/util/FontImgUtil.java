@@ -13,8 +13,8 @@ import javax.imageio.ImageIO;
 
 public class FontImgUtil {
 	public static final int LIGHT_COLOR = 192;
-	public static final int IMAGE_WIDTH = 120;
-	public static final int IMAGE_HEIGHT = 120;
+	public static final int IMAGE_WIDTH = 520;
+	public static final int IMAGE_HEIGHT = 520;
 	public static final String DEFAULT_IMAGE_PATH = "/tmp/";
 	/**
 	 * 根据文字和图片名称创建图片 默认字体宋体 加粗

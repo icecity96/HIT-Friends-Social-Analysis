@@ -53,7 +53,6 @@ public class UserServerImpl implements UserServer {
 			return -2;
 		}
 		Date now = new Date();
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-DD HH:mm:ss");
 		user.setPassword(PassWord.md5encode(user.getPassword()));
 		user.setHeadImg(PassWord.md5encode(user.getEmail()));
 		user.setCreateTime(now);
