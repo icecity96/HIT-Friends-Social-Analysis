@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.po.User;
 import com.service.UserServer;
+import com.util.StringUtil;
 
 @Controller
 public class UserController {
 	@Resource
 	private UserServer userServer;
 
-	@RequestMapping("/login")
 	public String login(HttpServletRequest request, HttpServletResponse response){
 		//获取表单提交的数据
 		String id = request.getParameter("id");
@@ -60,5 +60,41 @@ public class UserController {
 			session.setAttribute("userLogin", rsUser);
 		}
 		return "success";
+	}
+	
+	public String userRegister(HttpServletRequest request, HttpServletResponse response){
+		//获取表单数据
+		String nickname = request.getParameter("nickname");
+		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		String confirmPassword = request.getParameter("confirmPassword");
+		//检查邮箱格式是否合法
+		if (StringUtil.isEmail(email)==false) {
+			request.setAttribute("msg", "邮箱格式不合法");
+			return "failure";
+		}
+		//检查两次输入密码是否相同
+		if(!password.equals(confirmPassword)) {
+			request.setAttribute("msg", "两次密码输入不一致");
+			return "failure";
+		}
+		
+		User user = new User();
+		user.setEmail(email);
+		user.setPassword(password);
+		user.setNickname(nickname);
+		//用户注册
+		int userId = userServer.register(user);
+		switch (userId) {
+		case -1:
+			request.setAttribute("msg", "密码格式错误");
+			return "failure";
+		case -2:
+			request.setAttribute("msg", "用户名或邮箱已被占用");
+			return "failure";
+		default:
+			request.setAttribute("userId", userId);
+			return "success";
+		}
 	}
 }
