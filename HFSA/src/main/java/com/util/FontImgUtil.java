@@ -13,8 +13,8 @@ import javax.imageio.ImageIO;
 
 public class FontImgUtil {
 	public static final int LIGHT_COLOR = 192;
-	public static final int IMAGE_WIDTH = 520;
-	public static final int IMAGE_HEIGHT = 520;
+	public static final int IMAGE_WIDTH = 120;
+	public static final int IMAGE_HEIGHT = 120;
 	public static final String DEFAULT_IMAGE_PATH = "/tmp/";
 	/**
 	 * 根据文字和图片名称创建图片 默认字体宋体 加粗
@@ -63,7 +63,7 @@ public class FontImgUtil {
 		}
 		//设置画笔字体
 		fGraphics2d.setFont(font);
-		fGraphics2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_GASP);
+		fGraphics2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_LCD_HRGB);
 		//判断字体的绘制位置,居中显示
 		FontMetrics fontMetrics = fGraphics2d.getFontMetrics(font);
 		int textWidth = fontMetrics.stringWidth(str);
@@ -75,7 +75,7 @@ public class FontImgUtil {
 		fGraphics2d.drawString(str,x,y);
 		fGraphics2d.dispose();
 		//输出图片
-		ImageIO.write(image, "png", file);
+		ImageIO.write(image, "jpg", file);
 	}
 
 	/**
