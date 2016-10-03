@@ -10,8 +10,7 @@ body
 	-webkit-background-size:cover;
 	-moz-background-size:cover;
 	-o-background-size:cover;
-	background-size:cover;
-	color:rgba(255,255,255,.95)
+	background-size:cover
 }
 .signinpanel
 {
@@ -24,6 +23,10 @@ body
 	width:auto;
 	padding:0;
 	background:0 0
+}
+
+.signinpanel .signin-info{
+	color:rgba(255,255,255,.95)
 }
 .signinpanel .signin-info ul
 {
@@ -64,6 +67,7 @@ body
 }
 .signup-footer
 {
+	color:rgba(255,255,255,.95);
 	border-top:solid 1px rgba(255,255,255,.3);
 	margin:20px 0;
 	padding-top:15px
