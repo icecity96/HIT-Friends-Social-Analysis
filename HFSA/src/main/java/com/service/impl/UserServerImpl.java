@@ -1,24 +1,22 @@
 package com.service.impl;
 
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
 import com.dao.UserDao;
 import com.po.User;
 import com.service.UserServer;
-@Service
+@Repository
 public class UserServerImpl implements UserServer {
-	@Resource
+	@Autowired
 	private UserDao userDao;
+	
 	@Override
 	public User login(User user) {
 		// TODO Auto-generated method stub
