@@ -1,5 +1,7 @@
 package com.service;
 
+import org.springframework.stereotype.Repository;
+
 import com.po.User;
 
 public interface UserServer {

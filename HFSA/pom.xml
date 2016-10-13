@@ -10,12 +10,12 @@
 	<properties>
 		<spring.version>4.1.5.RELEASE</spring.version>
 		<aspectj.version>1.8.5</aspectj.version>
-		<mybatis.version>3.2.8</mybatis.version>
+		<mybatis.version>3.3.0</mybatis.version>
 		<druid.version>1.0.13</druid.version>
 	</properties>
 
 	<dependencies>
-		<!-- webmagic  code4craft/webmagic · GitHub -->
+		<!-- webmagic code4craft/webmagic · GitHub -->
 		<dependency>
 			<groupId>us.codecraft</groupId>
 			<artifactId>webmagic-core</artifactId>
@@ -27,6 +27,12 @@
 			<version>0.5.3</version>
 		</dependency>
 
+		<!-- https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient -->
+		<dependency>
+			<groupId>commons-httpclient</groupId>
+			<artifactId>commons-httpclient</artifactId>
+			<version>3.1</version>
+		</dependency>
 		<!-- https://mvnrepository.com/artifact/commons-logging/commons-logging -->
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -37,7 +43,7 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 
@@ -97,6 +103,7 @@
 			<artifactId>mybatis-spring</artifactId>
 			<version>1.2.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
@@ -113,8 +120,7 @@
 			<version>3.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-
-
+		
 	</dependencies>
 
 	<build>

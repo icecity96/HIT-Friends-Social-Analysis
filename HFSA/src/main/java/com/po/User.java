@@ -2,11 +2,13 @@ package com.po;
 
 import java.util.Date;
 
+import org.springframework.stereotype.Component;
+
 public class User {
 	private Integer id;
-	private String password;
-	private String email;
 	private String nickname;
+	private String email;
+	private String password;
 	private String headImg;
 	private Date createTime;
 	private Date updateTime;
