@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 
 import com.po.User;
 
+
 public interface UserDao {
 	
 	@Select ("select * from userInfo where param.nickname=#{nickname} or param.email=#{email}")
