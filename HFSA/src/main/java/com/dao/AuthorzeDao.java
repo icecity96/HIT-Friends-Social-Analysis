@@ -33,7 +33,6 @@ public interface AuthorzeDao {
 	 * @param userId 用户ID
 	 * @param status 微博信息类
 	 */
-	
 	@Insert("insert into userId values(#{status.id},#{status.text},#{status.inReplyToUserId},#{status.repostsCount},#{status.commentsCount},#{status.favorited})")
 	public void addWeibo(@Param("userId")int userId,@Param("status")Status status);
 	
