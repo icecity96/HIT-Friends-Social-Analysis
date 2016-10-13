@@ -6,13 +6,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.dao.UserDao;
 import com.po.User;
 import com.service.UserServer;
-@Repository
+
+@Service
 public class UserServerImpl implements UserServer {
 	@Autowired
 	private UserDao userDao;

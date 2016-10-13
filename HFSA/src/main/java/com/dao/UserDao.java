@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 
 import com.po.User;
 
-@Repository
 public interface UserDao {
 	public User findByNicknameOrEmail(@Param("param")Map<String, Object> param);
 	public void creatUser(@Param("user")User user);
