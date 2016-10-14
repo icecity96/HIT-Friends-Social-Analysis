@@ -57,6 +57,8 @@ public class UserServerImpl implements UserServer {
 		user.setCreateTime(now);
 		user.setUpdateTime(now);
 		userDao.creatUser(user);
+		int id = userDao.getMaxid();
+		user.setId(id);
 		return user.getId();
 	}
 
