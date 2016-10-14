@@ -21,7 +21,7 @@ public class SpringConfig  extends WebMvcConfigurerAdapter{
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
 		viewResolver.setViewClass(JstlView.class);
-		viewResolver.setPrefix("/WEB-INF/views");
+		viewResolver.setPrefix("/WEB-INF/views/");
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
@@ -35,7 +35,7 @@ public class SpringConfig  extends WebMvcConfigurerAdapter{
 	public ModelAndView login()
 	{
 		ModelAndView modelandview = new ModelAndView();
-		modelandview.setViewName("Login_v2");
+		modelandview.setViewName("Login");
 		return modelandview;
 	}
 }
