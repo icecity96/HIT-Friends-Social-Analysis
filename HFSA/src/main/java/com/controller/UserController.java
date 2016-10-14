@@ -21,7 +21,7 @@ public class UserController {
 	@RequestMapping("/")
 	public ModelAndView hello() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("Login");
+		modelAndView.setViewName("Login2");
 		return modelAndView;
 	}
 	//TODO:gaoxy
