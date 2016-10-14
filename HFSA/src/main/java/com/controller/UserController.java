@@ -21,7 +21,7 @@ public class UserController {
 	@RequestMapping("/")
 	public ModelAndView hello() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("Login");
+		modelAndView.setViewName("Login_v2");
 		return modelAndView;
 	}
 	//TODO:gaoxy
@@ -54,12 +54,12 @@ public class UserController {
 		}
 		//TODO:gaoxy
 		model.addObject("userLogin", rsUser);
-		model.setViewName("success");
+		model.setViewName("HomePage");
 		return model;
 	}
 	
 	//TODO:gaoxy
-	@RequestMapping(value="register",method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/register",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody 
 	ModelAndView userRegister(@RequestParam("nickname")String nickname,
 						@RequestParam("email")String email,

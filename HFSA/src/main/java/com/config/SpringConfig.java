@@ -31,11 +31,4 @@ public class SpringConfig  extends WebMvcConfigurerAdapter{
 		configurer.enable();
 	}
 	
-	@RequestMapping("/Login")
-	public ModelAndView login()
-	{
-		ModelAndView modelandview = new ModelAndView();
-		modelandview.setViewName("Login");
-		return modelandview;
-	}
 }
