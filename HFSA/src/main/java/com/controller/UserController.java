@@ -2,37 +2,33 @@ package com.controller;
 
 
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.po.User;
 import com.service.UserServer;
-import com.util.StringUtil;
 
 @Controller
 public class UserController {
-	@Resource
+	@Autowired
 	private UserServer userServer;
-
-	public String login(HttpServletRequest request, HttpServletResponse response){
-		//获取表单提交的数据
-		String id = request.getParameter("id");
-		String passwd = request.getParameter("password");
-		
-		HttpSession session = request.getSession();
-		//判断用户名和密码是否为空
-		if (id.isEmpty()) {
-			request.setAttribute("msg", "用户名不能为空");
-			return "failure";
-		}
-		if (passwd.isEmpty()) {
-			request.setAttribute("msg", "密码不能为空");
-			return "failure";
-		}
+	
+	@RequestMapping("/")
+	public ModelAndView hello() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("Login");
+		return modelAndView;
+	}
+	//TODO:gaoxy
+	@RequestMapping(value="/login",method={RequestMethod.POST, RequestMethod.GET})
+	public @ResponseBody 
+	ModelAndView login(@RequestParam("id")String id,
+						@RequestParam("password")String password){
 		//判断邮箱登录还是用户名登录
 		String email = null;
 		String nickname = null;
@@ -45,36 +41,37 @@ public class UserController {
 		User user = new User();
 		user.setEmail(email);
 		user.setNickname(nickname);
-		user.setPassword(passwd);
+		user.setPassword(password);
 		User rsUser = userServer.login(user);
-		//code 0 表示用户名或密码错误 1 表示成功登录
+		ModelAndView model = new ModelAndView();
 		if (rsUser==null) {
-			request.setAttribute("msg", "用户名或密码错误");
-			return "failure";
+			//TODO:gaoxy
+			model.setViewName("failue");
+			return model;
 			
 		} else {
 			rsUser.setPassword("default");
-			request.setAttribute("msg", "成功登录");
-			session.setAttribute("userLogin", rsUser);
 		}
-		return "success";
+		//TODO:gaoxy
+		model.addObject("userLogin", rsUser);
+		model.setViewName("success");
+		return model;
 	}
 	
-	public String userRegister(HttpServletRequest request, HttpServletResponse response){
-		//获取表单数据
-		String nickname = request.getParameter("nickname");
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		String confirmPassword = request.getParameter("confirmPassword");
-		//检查邮箱格式是否合法
-		if (StringUtil.isEmail(email)==false) {
-			request.setAttribute("msg", "邮箱格式不合法");
-			return "failure";
-		}
+	//TODO:gaoxy
+	@RequestMapping(value="register",method={RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody 
+	ModelAndView userRegister(@RequestParam("nickname")String nickname,
+						@RequestParam("email")String email,
+						@RequestParam("password")String password,
+						@RequestParam("confirmPassword")String confirmPassword){
+		ModelAndView modelAndView = new ModelAndView();
 		//检查两次输入密码是否相同
 		if(!password.equals(confirmPassword)) {
-			request.setAttribute("msg", "两次密码输入不一致");
-			return "failure";
+			//TODO:gaoxy
+			modelAndView.addObject("msg", "两次密码不同");
+			modelAndView.setViewName("false");
+			return modelAndView;
 		}
 		
 		User user = new User();
@@ -83,16 +80,18 @@ public class UserController {
 		user.setNickname(nickname);
 		//用户注册
 		int userId = userServer.register(user);
+		//TODO:gaoxy
 		switch (userId) {
 		case -1:
-			request.setAttribute("msg", "密码格式错误");
-			return "failure";
+			modelAndView.addObject("msg", "密码格式错误");
+			modelAndView.setViewName("false");
 		case -2:
-			request.setAttribute("msg", "用户名或邮箱已被占用");
-			return "failure";
+			modelAndView.addObject("msg", "用户名或邮箱已被占用");
+			modelAndView.setViewName("false");
 		default:
-			request.setAttribute("userId", userId);
-			return "success";
+			modelAndView.addObject("userIdRegister", userId);
+			modelAndView.setViewName("success");
 		}
+		return modelAndView;
 	}
 }
