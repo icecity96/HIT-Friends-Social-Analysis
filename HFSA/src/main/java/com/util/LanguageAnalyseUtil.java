@@ -97,6 +97,7 @@ public class LanguageAnalyseUtil {
 		String temp = annlyseText(text, Pattern.WS, Format.PLAIN);
 		String[] words = temp.split(" ");
 		for (String string : words) {
+			string = string.replace("\n", "");
 			if (tendencyVerbs.contains(string)) {
 				continue;
 			}
@@ -105,12 +106,31 @@ public class LanguageAnalyseUtil {
 		return result;
 	}
 	
+	/**
+	 * 对文本进行预处理，提取出文本中可能的兴趣关键词。
+	 * @param text
+	 * @return 兴趣关键词集
+	 * @throws IOException
+	 */
+	public static Set<String> getInterestingKeyword(String text) throws IOException {
+		Set<String> result = new HashSet<String>();
+		text = eliminateTendencyVerbs(text);
+		String dp = annlyseText(text, Pattern.DP, Format.PLAIN);
+		String[] dps = dp.split("\n");
+		for (String string : dps) {
+			String[] words = string.split(" ");
+			if (words.length>2 && words[2].matches("([VIF]OB)|(HED)")) {
+				result.add(words[0].split("_")[0]);
+			}
+		}
+		return result;
+	}
+	
 	public static void main(String[] args) throws IOException {
 		String text;
 		Scanner scanner = new Scanner(System.in);
 		text=scanner.nextLine();
-		text = eliminateTendencyVerbs(text);
-		String result = annlyseText(text, Pattern.DP, Format.PLAIN);
-		System.out.println(result);
+		Set<String> set = getInterestingKeyword(text);
+		System.out.println(set.toString());
 	}
 }
