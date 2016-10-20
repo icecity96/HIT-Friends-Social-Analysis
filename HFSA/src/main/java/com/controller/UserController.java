@@ -90,7 +90,7 @@ public class UserController {
 			modelAndView.setViewName("false");
 		default:
 			modelAndView.addObject("userIdRegister", userId);
-			modelAndView.setViewName("Login_v2");
+			modelAndView.setViewName("HomePage");
 		}
 		return modelAndView;
 	}
