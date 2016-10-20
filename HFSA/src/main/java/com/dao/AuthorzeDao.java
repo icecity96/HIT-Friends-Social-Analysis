@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 
 public interface AuthorzeDao {
 	//TODO:lx
-	@Insert("insert into AccessToken(accessToken,expireIn,refreshToken) values(#{accessToken.accessToken},#{accessToken.expireIn},#{accessToken.refreshToken}) where uid=userId")
+	@Insert("insert into AccessToken values(#{userId},#{accessToken.accessToken},#{accessToken.expireIn},#{accessToken.refreshToken},#{accessToken.uid})")
 	public void saveWeiboAccessToken(@Param("userId")int userId,
 								@Param("accessToken")AccessToken accessToken);
 	//TODO:lx
@@ -25,7 +25,7 @@ public interface AuthorzeDao {
 	 * @param userId
 	 * @return
 	 */
-	@Select("select latestUpdateTime from status where userId=#{userId} ")
+	@Select("select createdAt from status where userId=#{userId} order by createdAt")
 	public Date getNewestWeibotime(@Param("userId")int userId);
 	
 	/**
@@ -33,7 +33,7 @@ public interface AuthorzeDao {
 	 * @param userId 用户ID
 	 * @param status 微博信息类
 	 */
-	@Insert("insert into userId values(#{status.id},#{status.text},#{status.inReplyToUserId},#{status.repostsCount},#{status.commentsCount},#{status.favorited})")
+	@Insert("insert into status values(#{userId},#{status.id},#{status.createdAt},#{status.text},#{status.inReplyToUserId},#{status.repostsCount},#{status.commentsCount})")
 	public void addWeibo(@Param("userId")int userId,@Param("status")Status status);
 	
 	/**
@@ -41,6 +41,6 @@ public interface AuthorzeDao {
 	 * @param userId
 	 * @return
 	 */
-	@Select("select * from AccessToken where uid=#{userId}")
+	@Select("select * from AccessToken where userId=#{userId}")
 	public AccessToken getWeiboAccessToken(@Param("userId")int userId);
 }
