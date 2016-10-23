@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.dao.AuthorzeDao;
 import com.service.AuthorizeService;
+import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
 
+import weibo4j.Friendships;
+import weibo4j.Oauth;
 import weibo4j.Timeline;
 import weibo4j.http.AccessToken;
 import weibo4j.model.Status;
@@ -21,29 +24,14 @@ public class AuthorzeServiceImpl implements AuthorizeService{
 	private AuthorzeDao authorzeDao;
 
 	@Override
+	/**
+	 * 由于新浪微博对于网站应用不提供refresh_token,故而暂时只能由用户自己设置授权时间
+	 * @author ice_city
+	 * @param userId 网站用户id
+	 * @param token token
+	 */
 	public void saveWeiboAccessToken(int userId, AccessToken token) {
 		authorzeDao.saveWeiboAccessToken(userId, token);
 	}
 
-	@Override
-	public void updateWeiboDatabase(int userId) {
-		AccessToken accessToken = authorzeDao.getWeiboAccessToken(userId);
-		//获取最新20条动态
-		Timeline timeline = new Timeline(accessToken.getAccessToken());
-		try {
-			StatusWapper statusWapper = timeline.getUserTimeline();
-			List<Status> status = statusWapper.getStatuses();
-			Date newest = authorzeDao.getNewestWeibotime(userId);	//数据库中已有的最新微博发表时间
-			for (Status status2 : status) {
-				//若该微博比已有最新微博新，则加入数据库
-				if (status2.getCreatedAt().after(newest)) {
-					authorzeDao.addWeibo(userId, status2);
-					continue;
-				}
-				break;
-			}
-		} catch (WeiboException e) {
-			e.printStackTrace();
-		}
-	}
 }

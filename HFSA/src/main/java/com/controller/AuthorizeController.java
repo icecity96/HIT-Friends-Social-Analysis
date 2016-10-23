@@ -46,12 +46,4 @@ public class AuthorizeController {
 		authorizeService.saveWeiboAccessToken(Integer.parseInt(userId), accessToken);
 	}
 	
-	//TODO:gaoxy
-	/**
-	 * 更新数据库中的微博信息
-	 * @param userId
-	 */
-	public @ResponseBody void updateWeiboDatabase(@RequestParam("userId")String userId) {
-		authorizeService.updateWeiboDatabase(Integer.parseInt(userId));
-	}
 }

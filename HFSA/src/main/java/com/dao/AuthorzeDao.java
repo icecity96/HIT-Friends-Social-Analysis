@@ -23,10 +23,10 @@ public interface AuthorzeDao {
 	/**
 	 * 返回数据库中已有的最新微博的发布时间
 	 * @param userId
-	 * @return
+	 * @return 微博id的值
 	 */
 	@Select("select latestUpdateTime from status where userId=#{userId} ")
-	public Date getNewestWeibotime(@Param("userId")int userId);
+	public int getNewestWeibotime(@Param("userId")int userId);
 	
 	/**
 	 * 添加一条微博信息到数据库中
