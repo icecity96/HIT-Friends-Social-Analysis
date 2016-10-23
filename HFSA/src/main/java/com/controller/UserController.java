@@ -25,9 +25,9 @@ public class UserController {
 		return modelAndView;
 	}
 	//TODO:gaoxy
-	@RequestMapping(value="/login",method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="/HomePage",method={RequestMethod.POST, RequestMethod.GET})
 	public @ResponseBody 
-	ModelAndView login(@RequestParam("id")String id,
+	ModelAndView login(@RequestParam("name")String id,
 						@RequestParam("password")String password){
 		//判断邮箱登录还是用户名登录
 		String email = null;
