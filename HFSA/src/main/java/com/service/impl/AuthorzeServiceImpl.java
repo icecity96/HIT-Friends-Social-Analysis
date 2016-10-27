@@ -1,22 +1,11 @@
 package com.service.impl;
 
-import java.util.Date;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.dao.AuthorzeDao;
 import com.service.AuthorizeService;
-import com.sun.xml.internal.xsom.impl.scd.Iterators.Map;
-
-import weibo4j.Friendships;
-import weibo4j.Oauth;
-import weibo4j.Timeline;
 import weibo4j.http.AccessToken;
-import weibo4j.model.Status;
-import weibo4j.model.StatusWapper;
-import weibo4j.model.WeiboException;
 
 @Service
 public class AuthorzeServiceImpl implements AuthorizeService{
