@@ -80,8 +80,7 @@ public class WeiboServiceImpl implements WeiboService{
 	public void saveFriendsStatus(int userId) {
 		List<Status> status = getFriendsStatus(userId);
 		for (Status friendStatu : status) {
-			if (weiboDao.existUserId(Integer.parseInt(friendStatu.getUser().getId())) == 
-					Integer.parseInt(friendStatu.getUser().getId()) &&
+			if (weiboDao.existUserId(Integer.parseInt(friendStatu.getUser().getId())) != 0 &&
 					friendStatu.getIdstr() > weiboDao.getLastWeiboId(Integer.parseInt(friendStatu.getUser().getId()))) {
 				weiboDao.saveFriendWeibo(Integer.parseInt(friendStatu.getUser().getId()), friendStatu);
 			}
