@@ -1,5 +1,6 @@
 package com.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.annotations.Insert;
@@ -13,4 +14,9 @@ public interface UserDao {
 	public void creatUser(@Param("user")User user);
 	@Select("select max(id) from user")
 	public int getMaxid();
+	/**
+	 * 获取数据库中所有注册用户的id
+	 * @return
+	 */
+	public List<Integer> getAllUserId();
 }
