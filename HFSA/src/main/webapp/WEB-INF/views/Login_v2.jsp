@@ -57,14 +57,14 @@
 		                <div class="panel-body">
 		               		<div class="row">
 								<div class="col-lg-12">
-									<form id="login-form" action="login" method="post" role="form" style="display: block;">
+									<form id="login-form" action="HomePage" method="post" role="form" style="display: block;">
 										<div class="form-group">
 											<div class="text-center">
-												${requestScope.msg}
+												${msg }
 											</div>
 										</div>
 										<div class="form-group">
-											<input type="text" name="id" id="id" tabindex="1" class="form-control" placeholder="Username" required autofocus>
+											<input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="Username" required autofocus>
 										</div>
 										<div class="form-group">
 											<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password"required autofocus>
