@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ProFile</title>
+<title>Insert title here</title>
 </head>
 <body>
- this is the page for profile.
+ this is the page for adding friend.
 </body>
 </html>

@@ -46,7 +46,8 @@ public class UserController {
 		ModelAndView model = new ModelAndView();
 		if (rsUser==null) {
 			//TODO:gaoxy
-			model.setViewName("failue");
+			model.addObject("msg", "账号密码错误");
+			model.setViewName("Login_v2");
 			return model;
 			
 		} else {

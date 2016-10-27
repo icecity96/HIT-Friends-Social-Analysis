@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>SuccessAuthorize</title>
+<title>Insert title here</title>
 <script type="text/javascript">     
 function countDown(secs,surl){     
  //alert(surl);     
@@ -20,10 +20,7 @@ function countDown(secs,surl){
 </script> 
 </head>
 <body>
-	<div align="center">
-		<h2>授权成功</h2>
-		<span id="jumpTo">5</span>秒后自动跳转
-		<script type="text/javascript">countDown(5,'http://localhost:8080/HFSA/');</script>
-	</div>
+<span id="jumpTo">5</span>秒后自动跳转到http://www.baidu.com/
+<script type="text/javascript">countDown(5,'http://www.baidu.com/');</script>
 </body>
 </html>

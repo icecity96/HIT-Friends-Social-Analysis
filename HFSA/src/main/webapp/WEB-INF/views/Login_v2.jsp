@@ -60,7 +60,7 @@
 									<form id="login-form" action="HomePage" method="post" role="form" style="display: block;">
 										<div class="form-group">
 											<div class="text-center">
-												${requestScope.msg}
+												${msg }
 											</div>
 										</div>
 										<div class="form-group">

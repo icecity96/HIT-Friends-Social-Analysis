@@ -4,9 +4,14 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ProFile</title>
+<title>FriendsList</title>
 </head>
 <body>
- this is the page for profile.
+ 	<c:forEach items="${FriendsList}" var="friend">
+ 	<tr>
+	 	<td>${friend.id}</td>
+	 	<td>${friend.screenName}</td>
+	</tr>
+ 	</c:forEach>
 </body>
 </html>

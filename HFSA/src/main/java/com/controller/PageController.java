@@ -46,4 +46,36 @@ public class PageController {
 		System.out.println(code);
 		return model;
 	}
+	
+	@RequestMapping(value="/AllMessage")
+	public @ResponseBody 
+	ModelAndView ShowAllMessage(){
+		ModelAndView model = new ModelAndView();
+		model.setViewName("AllMessage");
+		return model;
+	}
+	
+	@RequestMapping(value="/FriendsList")
+	public @ResponseBody 
+	ModelAndView ShowFriednsList(){
+		ModelAndView model = new ModelAndView();
+		model.setViewName("FriendsList");
+		return model;
+	}
+	
+	@RequestMapping(value="/AddFriend")
+	public @ResponseBody 
+	ModelAndView AddFriend(){
+		ModelAndView model = new ModelAndView();
+		model.setViewName("AddFriend");
+		return model;
+	}
+	
+	@RequestMapping(value="/test")
+	public @ResponseBody 
+	ModelAndView test(){
+		ModelAndView model = new ModelAndView();
+		model.setViewName("test");
+		return model;
+	}
 }
