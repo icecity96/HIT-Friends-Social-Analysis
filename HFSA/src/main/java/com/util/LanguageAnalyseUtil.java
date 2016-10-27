@@ -11,7 +11,10 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -23,6 +26,7 @@ import java.util.Set;
  */
 public class LanguageAnalyseUtil {
 	private static final String API_KEY = "i8r2P9Q28NjXWEnr0PVZgJptXl1PuzaCUYbfYDKr";	//获取权限的key,勿动
+	private static final int WORD_FREQUENCE = 2;	//兴趣词词频，低于此词频将被忽略
 	public static enum Pattern{
 		WS("ws"),POS("pos"),NER("ner"),DP("dp"),SDP("sdp"),SRL("srl"),ALL("all");
 		private String value;
@@ -107,12 +111,12 @@ public class LanguageAnalyseUtil {
 	}
 	
 	/**
-	 * 对文本进行预处理，提取出文本中可能的兴趣关键词。
+	 * 对文本进行预处理，提取出单条动态中可能的兴趣关键词。
 	 * @param text
 	 * @return 兴趣关键词集
 	 * @throws IOException
 	 */
-	public static Set<String> getInterestingKeyword(String text) throws IOException {
+	public static Set<String> getInterestingKeywordFromOneText(String text) throws IOException {
 		Set<String> result = new HashSet<String>();
 		text = eliminateTendencyVerbs(text);
 		String dp = annlyseText(text, Pattern.DP, Format.PLAIN);
@@ -126,11 +130,24 @@ public class LanguageAnalyseUtil {
 		return result;
 	}
 	
+	/**
+	 * 根据用户一段时间内所发的所有动态，来提取用户这段时间内可能的兴趣关键词
+	 * @param texts 一段时间内用户所有动态
+	 * @throws IOException
+	 */
+	public static void getInterestingKeyword(List<String> texts) throws IOException {
+		Map<String, Integer> interestingWordMap = new HashMap<String,Integer>();
+		for (String text : texts) {
+			Set<String> temp = getInterestingKeywordFromOneText(text);
+			
+		}
+	}
+	
 	public static void main(String[] args) throws IOException {
 		String text;
 		Scanner scanner = new Scanner(System.in);
 		text=scanner.nextLine();
-		Set<String> set = getInterestingKeyword(text);
+		Set<String> set = getInterestingKeywordFromOneText(text);
 		System.out.println(set.toString());
 	}
 }

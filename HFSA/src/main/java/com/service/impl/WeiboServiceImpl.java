@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import com.dao.AuthorzeDao;
+import com.dao.UserDao;
 import com.dao.WeiboDao;
 import com.service.WeiboService;
 import weibo4j.Account;
@@ -25,7 +27,8 @@ public class WeiboServiceImpl implements WeiboService{
 	private AuthorzeDao authorzeDao;
 	@Autowired
 	private WeiboDao weiboDao;
-	
+	@Autowired
+	private UserDao userDao;
 	/**
 	 * @author ice_city
 	 * @param userId 网站用户id
@@ -77,9 +80,22 @@ public class WeiboServiceImpl implements WeiboService{
 	public void saveFriendsStatus(int userId) {
 		List<Status> status = getFriendsStatus(userId);
 		for (Status friendStatu : status) {
-			if (friendStatu.getIdstr() > weiboDao.getLastWeiboId(Integer.parseInt(friendStatu.getUser().getId()))) {
+			if (weiboDao.existUserId(Integer.parseInt(friendStatu.getUser().getId())) != 0 &&
+					friendStatu.getIdstr() > weiboDao.getLastWeiboId(Integer.parseInt(friendStatu.getUser().getId()))) {
 				weiboDao.saveFriendWeibo(Integer.parseInt(friendStatu.getUser().getId()), friendStatu);
 			}
+		}
+	}
+	
+	/**
+	 * @author ice_city
+	 * 后台定时任务，每隔5分钟，执行一次，用于刷取好友动态
+	 */
+	@Scheduled(fixedDelay=300000)
+	public void updateFriendWeiboStatus() {
+		List<Integer> userIds = userDao.getAllUserId();
+		for (Integer integer : userIds) {
+			saveFriendsStatus(integer.intValue());
 		}
 	}
 	
