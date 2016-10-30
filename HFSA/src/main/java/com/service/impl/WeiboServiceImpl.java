@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Service;
 
 import com.dao.AuthorzeDao;
 import com.dao.UserDao;
@@ -22,6 +23,7 @@ import weibo4j.model.UserWapper;
 import weibo4j.model.WeiboException;
 import weibo4j.org.json.JSONException;
 
+@Service
 public class WeiboServiceImpl implements WeiboService{
 	@Autowired
 	private AuthorzeDao authorzeDao;

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value="/",method={RequestMethod.GET,RequestMethod.POST})
 public class PageController {
-	@RequestMapping(value="/Authorize")
+	@RequestMapping(value="/Authorize&id=?")
 	public @ResponseBody 
 	ModelAndView Identification(){
 		ModelAndView model = new ModelAndView();

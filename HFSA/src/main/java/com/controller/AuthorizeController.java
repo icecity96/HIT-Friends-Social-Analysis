@@ -15,7 +15,7 @@ import weibo4j.model.WeiboException;
 @Controller
 public class AuthorizeController {
 	@Autowired
-	private AuthorizeService authorizeService;
+	private static AuthorizeService authorizeService;
 	//TODO:gaoxy
 	/**
 	 * 微博授权
@@ -38,7 +38,7 @@ public class AuthorizeController {
 	 * @param userId
 	 * @throws WeiboException
 	 */
-	public @ResponseBody void 
+	public static void 
 		saveAccessTokenByCode(@RequestParam("code")String code,
 							@RequestParam("userId")String userId) throws WeiboException {
 		Oauth oauth = new Oauth();

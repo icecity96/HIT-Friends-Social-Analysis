@@ -37,7 +37,7 @@
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a class="J_menuItem" href="ProFile">个人资料</a>
                                 </li>
-                                <li><a href="Authorize">账号认证</a>
+                                <li><a href="Authorize&id=${userLogin.id }">账号认证</a>
                                 </li>
                                 <li><a href="test">test</a>
                                 </li>
