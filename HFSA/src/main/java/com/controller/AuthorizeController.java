@@ -1,5 +1,8 @@
 package com.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +19,10 @@ import weibo4j.model.WeiboException;
 public class AuthorizeController {
 	@Autowired
 	private AuthorizeService authorizeService;
+	@Autowired
+	private HttpServletRequest request;
+	@Autowired
+	private HttpSession session;
 	//TODO:gaoxy
 	/**
 	 * 微博授权
@@ -46,12 +53,4 @@ public class AuthorizeController {
 		authorizeService.saveWeiboAccessToken(Integer.parseInt(userId), accessToken);
 	}
 	
-	//TODO:gaoxy
-	/**
-	 * 更新数据库中的微博信息
-	 * @param userId
-	 */
-	public @ResponseBody void updateWeiboDatabase(@RequestParam("userId")String userId) {
-		authorizeService.updateWeiboDatabase(Integer.parseInt(userId));
-	}
 }

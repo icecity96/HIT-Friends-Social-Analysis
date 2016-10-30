@@ -99,7 +99,7 @@ public class Status extends WeiboResponse {
 				}
 			}
 		}
-		longitude=Double.parseDouble(value.toString());
+		longitude=Double.parseDouble(value.toString().equals("")?"0":value.toString());
 	}
 
 

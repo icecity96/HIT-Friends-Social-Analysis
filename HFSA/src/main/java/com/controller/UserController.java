@@ -2,6 +2,9 @@ package com.controller;
 
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +20,10 @@ import com.service.UserServer;
 public class UserController {
 	@Autowired
 	private UserServer userServer;
+	@Autowired
+	private HttpServletRequest request;
+	@Autowired
+	private HttpSession session;
 	
 	@RequestMapping("/")
 	public ModelAndView hello() {
@@ -49,12 +56,9 @@ public class UserController {
 			model.addObject("msg", "账号密码错误");
 			model.setViewName("Login_v2");
 			return model;
-			
 		} else {
 			rsUser.setPassword("default");
 		}
-		//TODO:gaoxy
-		model.addObject("userLogin", rsUser);
 		model.setViewName("HomePage");
 		return model;
 	}
@@ -95,4 +99,5 @@ public class UserController {
 		}
 		return modelAndView;
 	}
+
 }
