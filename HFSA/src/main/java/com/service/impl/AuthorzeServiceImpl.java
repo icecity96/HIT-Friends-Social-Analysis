@@ -34,4 +34,10 @@ public class AuthorzeServiceImpl implements AuthorizeService{
 		authorzeDao.saveWeiboAccessToken(userId, token);
 	}
 
+	@Override
+	public void updateWeiboDatabase(int userId) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

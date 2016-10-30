@@ -23,7 +23,7 @@ function countDown(secs,surl){
 	<div align="center">
 		<h2>授权成功</h2>
 		<span id="jumpTo">5</span>秒后自动跳转
-		<script type="text/javascript">countDown(5,'http://localhost:8080/HFSA/');</script>
+		<script type="text/javascript">countDown(5,'http://localhost:8080/HFSA/ReLogin?code=${param.code }');</script>
 	</div>
 </body>
 </html>

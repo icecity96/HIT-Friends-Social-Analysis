@@ -40,9 +40,7 @@
                                 <li><a href="Authorize">账号认证</a>
                                 </li>
                                 <li><a href="test">test</a>
-                                </li>
-                                <li><a class="J_menuItem" href="AddFriend">添加好友</a>
-                                </li>
+                                </li> 
                                 <li class="divider"></li>
                                 <li><a href="Login">安全退出</a>
                                 </li>
@@ -63,7 +61,12 @@
 	                        <span class="nav-label">好友列表</span>
                         </a>
                     </li>
-
+					<li>
+                        <a class="J_menuItem" href="AddFriend">
+	                        <i class="fa fa-heart"></i>
+	                        <span class="nav-label">添加关注</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span class="label label-warning pull-right">16</span></a>
                         <ul class="nav nav-second-level">

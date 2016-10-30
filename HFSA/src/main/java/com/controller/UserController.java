@@ -16,6 +16,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.po.User;
 import com.service.UserServer;
 
+import weibo4j.model.WeiboException;
+
 @Controller
 public class UserController {
 	@Autowired
@@ -59,6 +61,44 @@ public class UserController {
 		} else {
 			rsUser.setPassword("default");
 		}
+		session.setAttribute("userLogin", rsUser);
+		model.setViewName("HomePage");
+		return model;
+	}
+	
+	@RequestMapping(value="/HomePageSA",method={RequestMethod.POST, RequestMethod.GET})
+	public @ResponseBody 
+	ModelAndView login(@RequestParam("name")String id,
+						@RequestParam("password")String password,
+						 @RequestParam("code")String code) throws WeiboException{
+		//判断邮箱登录还是用户名登录
+		String email = null;
+		String nickname = null;
+		if (id.indexOf("@")>0) {
+			email = id;
+		} else {
+			nickname = id;
+		}
+		
+		User user = new User();
+		user.setEmail(email);
+		user.setNickname(nickname);
+		user.setPassword(password);
+		User rsUser = userServer.login(user);
+		ModelAndView model = new ModelAndView();
+		if (rsUser==null) {
+			//TODO:gaoxy
+			model.addObject("msg", "账号密码错误");
+			model.setViewName("Login_v2");
+			return model;
+		} else {
+			rsUser.setPassword("default");
+		}
+		session.setAttribute("userLogin", rsUser);
+		String userId = rsUser.getId().toString();
+		System.out.println(userId);
+		System.out.println(code);
+		AuthorizeController.saveAccessTokenByCode(code, userId);
 		model.setViewName("HomePage");
 		return model;
 	}

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.po.User;
 import com.service.AuthorizeService;
 
 import weibo4j.Oauth;
@@ -18,7 +19,7 @@ import weibo4j.model.WeiboException;
 @Controller
 public class AuthorizeController {
 	@Autowired
-	private AuthorizeService authorizeService;
+	private static AuthorizeService authorizeService;
 	@Autowired
 	private HttpServletRequest request;
 	@Autowired
@@ -45,11 +46,14 @@ public class AuthorizeController {
 	 * @param userId
 	 * @throws WeiboException
 	 */
-	public @ResponseBody void 
-		saveAccessTokenByCode(@RequestParam("code")String code,
-							@RequestParam("userId")String userId) throws WeiboException {
+	public static void 
+		saveAccessTokenByCode(String code,
+							String userId) throws WeiboException {
 		Oauth oauth = new Oauth();
+		System.out.println(code);
+		System.out.println(userId);
 		AccessToken accessToken = oauth.getAccessTokenByCode(code);
+		System.out.println(accessToken.getAccessToken());
 		authorizeService.saveWeiboAccessToken(Integer.parseInt(userId), accessToken);
 	}
 	

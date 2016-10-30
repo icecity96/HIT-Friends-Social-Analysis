@@ -3,9 +3,9 @@ package com.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
 
 
 /*
@@ -38,12 +38,19 @@ public class PageController {
 		return model;
 	}
 	
+	@RequestMapping(value="/ReLogin")
+	public @ResponseBody 
+	ModelAndView ReLogin(){
+		ModelAndView model = new ModelAndView();
+		model.setViewName("Login2");
+		return model;
+	}
+	
 	@RequestMapping(value="/SuccessAuthorize")
 	public @ResponseBody
-	ModelAndView SuccessConnectWEIBO(@RequestParam String code){
+	ModelAndView SuccessConnectWEIBO(){
 		ModelAndView model = new ModelAndView();
 		model.setViewName("SuccessAuthorize");
-		System.out.println(code);
 		return model;
 	}
 	
