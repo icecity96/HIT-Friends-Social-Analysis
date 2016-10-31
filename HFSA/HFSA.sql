@@ -24,10 +24,11 @@ DROP TABLE IF EXISTS `accesstoken`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `accesstoken` (
   `userId` bigint(20) NOT NULL,
-  `accessToken` varchar(40) NOT NULL,
-  `expireIn` varchar(40) NOT NULL,
-  `refreshToken` varchar(40) NOT NULL,
-  `uid` varchar(40) NOT NULL
+  `accessToken` varchar(60) DEFAULT NULL,
+  `expireIn` varchar(60) DEFAULT NULL,
+  `refreshToken` varchar(60) DEFAULT NULL,
+  `uid` varchar(60) DEFAULT NULL,
+  PRIMARY KEY (`userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -37,6 +38,7 @@ CREATE TABLE `accesstoken` (
 
 LOCK TABLES `accesstoken` WRITE;
 /*!40000 ALTER TABLE `accesstoken` DISABLE KEYS */;
+INSERT INTO `accesstoken` VALUES (1,NULL,NULL,NULL,NULL),(2,'2.00f1JfFGNDRL7D1d285423a1ONKyrC',NULL,NULL,NULL),(19,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `accesstoken` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,6 +70,27 @@ LOCK TABLES `status` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `test`
+--
+
+DROP TABLE IF EXISTS `test`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `test` (
+  `t` bigint(10) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `test`
+--
+
+LOCK TABLES `test` WRITE;
+/*!40000 ALTER TABLE `test` DISABLE KEYS */;
+/*!40000 ALTER TABLE `test` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `user`
 --
 
@@ -76,14 +99,14 @@ DROP TABLE IF EXISTS `user`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `user` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nickname` varchar(20) DEFAULT NULL,
-  `email` varchar(20) DEFAULT NULL,
-  `password` varchar(20) DEFAULT NULL,
-  `headImg` varchar(30) DEFAULT NULL,
+  `password` varchar(32) NOT NULL,
+  `nickname` varchar(32) NOT NULL,
+  `email` varchar(32) NOT NULL,
+  `headImg` varchar(40) NOT NULL,
   `createTime` date DEFAULT NULL,
   `updateTime` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -92,6 +115,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` VALUES (1,'lx','5221@qq.com','0a87b8c3a036b40fbbadff34dc9d2c96','cd5bb31404157f6f7af619d97299c4c0','2016-10-30','2016-10-30'),(2,'0a87b8c3a036b40fbbadff34dc9d2c96','lx','5221@qq.com','cd5bb31404157f6f7af619d97299c4c0','2016-10-30','2016-10-30'),(15,'!Lx1234!','x','123@qq.com','abcde123',NULL,NULL),(17,'!Lx1235!','xx','13@qq.com','abcd123',NULL,NULL),(19,'!Lx1255!','x1x','123@qq.com','abcd1323',NULL,NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -104,4 +128,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-10-23 20:30:53
+-- Dump completed on 2016-10-31 13:00:01
