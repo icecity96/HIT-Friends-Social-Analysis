@@ -2,6 +2,9 @@ package com.controller;
 
 
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,21 +16,27 @@ import org.springframework.web.servlet.ModelAndView;
 import com.po.User;
 import com.service.UserServer;
 
+import weibo4j.model.WeiboException;
+
 @Controller
 public class UserController {
 	@Autowired
 	private UserServer userServer;
+	@Autowired
+	private HttpServletRequest request;
+	@Autowired
+	private HttpSession session;
 	
 	@RequestMapping("/")
 	public ModelAndView hello() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("Login2");
+		modelAndView.setViewName("Login_v2");
 		return modelAndView;
 	}
 	//TODO:gaoxy
-	@RequestMapping(value="/login",method={RequestMethod.POST, RequestMethod.GET})
+	@RequestMapping(value="/HomePage",method={RequestMethod.POST, RequestMethod.GET})
 	public @ResponseBody 
-	ModelAndView login(@RequestParam("id")String id,
+	ModelAndView login(@RequestParam("name")String id,
 						@RequestParam("password")String password){
 		//判断邮箱登录还是用户名登录
 		String email = null;
@@ -46,20 +55,56 @@ public class UserController {
 		ModelAndView model = new ModelAndView();
 		if (rsUser==null) {
 			//TODO:gaoxy
-			model.setViewName("failue");
+			model.addObject("msg", "账号密码错误");
+			model.setViewName("Login_v2");
 			return model;
-			
 		} else {
 			rsUser.setPassword("default");
 		}
-		//TODO:gaoxy
-		model.addObject("userLogin", rsUser);
-		model.setViewName("success");
+		session.setAttribute("userLogin", rsUser);
+		model.setViewName("HomePage");
+		return model;
+	}
+	
+	@RequestMapping(value="/HomePageSA",method={RequestMethod.POST, RequestMethod.GET})
+	public @ResponseBody 
+	ModelAndView login(@RequestParam("name")String id,
+						@RequestParam("password")String password,
+						 @RequestParam("code")String code) throws WeiboException{
+		//判断邮箱登录还是用户名登录
+		String email = null;
+		String nickname = null;
+		if (id.indexOf("@")>0) {
+			email = id;
+		} else {
+			nickname = id;
+		}
+		
+		User user = new User();
+		user.setEmail(email);
+		user.setNickname(nickname);
+		user.setPassword(password);
+		User rsUser = userServer.login(user);
+		ModelAndView model = new ModelAndView();
+		if (rsUser==null) {
+			//TODO:gaoxy
+			model.addObject("msg", "账号密码错误");
+			model.setViewName("Login_v2");
+			return model;
+		} else {
+			rsUser.setPassword("default");
+		}
+		session.setAttribute("userLogin", rsUser);
+		String userId = rsUser.getId().toString();
+		System.out.println(userId);
+		System.out.println(code);
+		AuthorizeController.saveAccessTokenByCode(code, userId);
+		model.setViewName("HomePage");
 		return model;
 	}
 	
 	//TODO:gaoxy
-	@RequestMapping(value="register",method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/register",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody 
 	ModelAndView userRegister(@RequestParam("nickname")String nickname,
 						@RequestParam("email")String email,
@@ -90,8 +135,9 @@ public class UserController {
 			modelAndView.setViewName("false");
 		default:
 			modelAndView.addObject("userIdRegister", userId);
-			modelAndView.setViewName("success");
+			modelAndView.setViewName("HomePage");
 		}
 		return modelAndView;
 	}
+
 }
