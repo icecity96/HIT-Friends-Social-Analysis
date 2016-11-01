@@ -3,7 +3,11 @@ package com.service.impl;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -97,6 +101,21 @@ public class WeiboServiceImpl implements WeiboService{
 		List<Integer> userIds = userDao.getAllUserId();
 		for (Integer integer : userIds) {
 			saveFriendsStatus(integer.intValue());
+		}
+	}
+
+	@Override
+	public void weiboSpider() {
+		List<String> urList = weiboDao.getAllUrlList();
+		if (urList.isEmpty()) {
+			return;
+		}
+		FirefoxDriver driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		for (String url : urList) {
+			driver.get(url);
+			WebElement wbFeed = driver.findElement(By.cssSelector("div[class*='WB_feed WB_feed_v3']"));
+	        List<WebElement> status = wbFeed.findElements(By.cssSelector("div[class*='WB_text W_f14']"));
 		}
 	}
 	

@@ -9,4 +9,5 @@ public interface WeiboService {
 	public List<User> getFriendsList(int userId);
 	public List<Status> getFriendsStatus(int userId);
 	public void saveFriendsStatus(int userId);
+	public void weiboSpider();
 }

@@ -23,7 +23,7 @@ public class DataSourceConfig {
 			//lx 修改个人配置区
 			dataSource.setUrl("jdbc:mysql://localhost:3306/HFSA");
 			dataSource.setUsername("root");
-			dataSource.setPassword("lmy19960521");
+			dataSource.setPassword("5221");
 		} else {
 			//gaoxy 修改个人配置区域
 			dataSource.setUrl("jdbc:mysql://localhost:3306/HFSA");
