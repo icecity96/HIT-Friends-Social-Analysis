@@ -39,8 +39,6 @@
                                 </li>
                                 <li><a href="Authorize">账号认证</a>
                                 </li>
-                                <li><a href="test">test</a>
-                                </li> 
                                 <li class="divider"></li>
                                 <li><a href="Login">安全退出</a>
                                 </li>

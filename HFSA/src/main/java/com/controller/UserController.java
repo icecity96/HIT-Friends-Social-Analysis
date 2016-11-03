@@ -134,7 +134,7 @@ public class UserController {
 			modelAndView.addObject("msg", "用户名或邮箱已被占用");
 			modelAndView.setViewName("false");
 		default:
-			modelAndView.addObject("userIdRegister", userId);
+			session.setAttribute("userLogin", user);
 			modelAndView.setViewName("HomePage");
 		}
 		return modelAndView;

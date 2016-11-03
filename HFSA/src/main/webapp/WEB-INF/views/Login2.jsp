@@ -27,7 +27,7 @@
 					<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password"required autofocus>
 				</div>
 				<div class="form-group">
-					<input type="code" name="code" id="code" tabindex="3" class="form-control" value="${param.code }">
+					<input type="code" name="code" id="code" tabindex="3" class="form-control" value="${param.code }" disabled="disabled">
 				</div>
 				<div class="form-group">
 					<div class="row">

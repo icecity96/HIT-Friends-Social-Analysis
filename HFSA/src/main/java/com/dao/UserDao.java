@@ -10,7 +10,7 @@ import com.po.User;
 public interface UserDao {
 	@Select ("select * from user where nickname=#{param.nickname} or email=#{param.email}")
 	public User findByNicknameOrEmail(@Param("param")Map<String, Object> param);
-	@Insert ("insert into user values(#{user.id},#{user.nickname},#{user.email},#{user.password},#{user.headImg},#{user.createTime},#{user.updateTime})")
+	@Insert ("insert into user values(#{user.id},#{user.password},#{user.nickname},#{user.email},#{user.headImg},#{user.createTime},#{user.updateTime})")
 	public void creatUser(@Param("user")User user);
 	@Select("select max(id) from user")
 	public int getMaxid();
