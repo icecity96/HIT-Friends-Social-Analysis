@@ -2,6 +2,8 @@ package com.controller;
 
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -17,7 +19,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.po.Friends;
 import com.po.User;
 import com.service.AuthorizeService;
+import com.service.TianyaService;
 import com.service.UserServer;
+import com.service.WeiboService;
 
 import weibo4j.Oauth;
 import weibo4j.http.AccessToken;
@@ -27,6 +31,10 @@ import weibo4j.model.WeiboException;
 public class UserController {
 	@Autowired
 	private UserServer userServer;
+	@Autowired
+	private TianyaService tianyaService;
+	@Autowired
+	private WeiboService weiboService;
 	@Autowired
 	private AuthorizeService authorizeService;
 	@Autowired
@@ -160,5 +168,24 @@ public class UserController {
 		} else {
 			request.setAttribute("msg", "成功添加好友");
 		}
+	}
+	
+	/**
+	 * 返回用户所有的好友的部分动态
+	 * @param id
+	 */
+	@RequestMapping(value="/lastesMovements",method={RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody 
+	void lastesMovements(@RequestParam("id")int id) {
+		request.setAttribute("friendsStatus", userServer.lastesMovements(id));
+	}
+	
+	/**
+	 * 添加好友后建议使用钙函数刷新数据库，而不用等每小时刷新一次
+	 */
+	@RequestMapping(value="/spider")
+	public void SpiderForce() {
+		tianyaService.TianyaSpider();
+		weiboService.weiboSpider();
 	}
 }

@@ -3,6 +3,7 @@ package com.service.impl;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import com.dao.FriendsDao;
 import com.dao.UserDao;
 import com.po.Friends;
 import com.po.User;
+import com.po.weiboAndtianya;
 import com.service.UserServer;
 
 @Service
@@ -82,6 +84,11 @@ public class UserServerImpl implements UserServer {
 		}
 		friendsDao.insertFriend(friend);
 		return 1;
+	}
+
+	@Override
+	public List<weiboAndtianya> lastesMovements(int id) {
+		return friendsDao.latestMovement(id);
 	}
 
 }
