@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.po.Friends;
 import com.po.User;
 import com.service.AuthorizeService;
 import com.service.UserServer;
@@ -145,5 +146,19 @@ public class UserController {
 		}
 		return modelAndView;
 	}
-
+	
+	@RequestMapping(value="/addFriends",method={RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody 
+	void addFriends(@RequestParam("id")int id,
+						@RequestParam("name")String name,
+						@RequestParam("weibourl")String weibourl,
+						@RequestParam("tianyaurl")String tianyaurl) {
+		Friends friend = new Friends(id, name, weibourl, tianyaurl);
+		int code = userServer.addFriend(friend);
+		if (code==0) {
+			request.setAttribute("msg", "该好友已存在");
+		} else {
+			request.setAttribute("msg", "成功添加好友");
+		}
+	}
 }

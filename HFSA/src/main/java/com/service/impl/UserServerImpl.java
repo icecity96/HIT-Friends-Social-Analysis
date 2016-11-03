@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import com.dao.FriendsDao;
 import com.dao.UserDao;
+import com.po.Friends;
 import com.po.User;
 import com.service.UserServer;
 
@@ -17,7 +19,8 @@ import com.service.UserServer;
 public class UserServerImpl implements UserServer {
 	@Autowired
 	private UserDao userDao;
-	
+	@Autowired
+	private FriendsDao friendsDao;
 	@Override
 	public User login(User user) {
 		// TODO Auto-generated method stub
@@ -68,6 +71,17 @@ public class UserServerImpl implements UserServer {
 		param.put("nickname", user.getNickname());
 		param.put("email", user.getEmail());
 		return userDao.findByNicknameOrEmail(param) != null;
+	}
+
+	@Override
+	public int addFriend(Friends friend) {
+		//如果这个好友已经添加过
+		if (friendsDao.allFriends((int)friend.getId()) != null &&
+			friendsDao.allFriends((int)friend.getId()).contains(friend.getFriendname())) {
+			return 0;
+		}
+		friendsDao.insertFriend(friend);
+		return 1;
 	}
 
 }

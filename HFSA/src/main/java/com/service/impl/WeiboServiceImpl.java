@@ -1,5 +1,6 @@
 package com.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,8 +14,11 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.dao.AuthorzeDao;
+import com.dao.FriendsDao;
 import com.dao.UserDao;
+import com.dao.WTDao;
 import com.dao.WeiboDao;
+import com.po.weiboAndtianya;
 import com.service.WeiboService;
 import weibo4j.Account;
 import weibo4j.Friendships;
@@ -32,6 +36,10 @@ public class WeiboServiceImpl implements WeiboService{
 	private AuthorzeDao authorzeDao;
 	@Autowired
 	private WeiboDao weiboDao;
+	@Autowired
+	private FriendsDao friendsDao;
+	@Autowired
+	private WTDao wtDao;
 	@Autowired
 	private UserDao userDao;
 	/**
@@ -92,31 +100,36 @@ public class WeiboServiceImpl implements WeiboService{
 		}
 	}
 	
-	/**
-	 * @author ice_city
-	 * 后台定时任务，每隔5分钟，执行一次，用于刷取好友动态
-	 */
-	@Scheduled(fixedDelay=300000)
-	public void updateFriendWeiboStatus() {
-		List<Integer> userIds = userDao.getAllUserId();
-		for (Integer integer : userIds) {
-			saveFriendsStatus(integer.intValue());
-		}
-	}
-
 	@Override
+	@Scheduled(cron="0 0 */1 * *")	//Hope this will exec per hour
 	public void weiboSpider() {
-		List<String> urList = weiboDao.getAllUrlList();
+		List<String> urList = wtDao.returnWeiboUrl();
 		if (urList.isEmpty()) {
 			return;
 		}
+		List<weiboAndtianya> weiboAndtianyas = new ArrayList<weiboAndtianya>();
 		FirefoxDriver driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		for (String url : urList) {
-			driver.get(url);
-			WebElement wbFeed = driver.findElement(By.cssSelector("div[class*='WB_feed WB_feed_v3']"));
-	        List<WebElement> status = wbFeed.findElements(By.cssSelector("div[class*='WB_text W_f14']"));
+			try {
+				driver.get(url);
+				WebElement wbFeed = driver.findElement(By.cssSelector("div[class*='WB_feed WB_feed_v3']"));
+		        List<WebElement> status = wbFeed.findElements(By.cssSelector("div[class*='class*='WB_detail']"));
+		        for (WebElement statu : status) {
+					String time = statu.findElement(By.cssSelector("div[class*='WB_from S_txt2']"))
+							.findElement(By.cssSelector("a[target*='_blank']")).getAttribute("title");
+		        	time = time.replaceAll("[\t| |:|-]", "");
+					String context = statu.findElement(By.cssSelector("a[class*='WB_text']")).getText();
+					weiboAndtianyas.add(new weiboAndtianya(url, time, context, "weibo"));
+		        }
+			} catch (Exception e) {
+				//if there has any error(timeout ,elementNotExist,we just
+				//jump this url.and hope next time this function will work
+				continue;
+			}
 		}
+		wtDao.insertWeibo(weiboAndtianyas);
+		driver.close();
 	}
 	
 }
