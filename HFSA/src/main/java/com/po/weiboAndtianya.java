@@ -6,45 +6,50 @@ public class weiboAndtianya {
 	private String time;
 	private String context;
 	private String type;//用以区分微博和天涯
-	long getbelongto()
-	{
+	
+	public weiboAndtianya() {
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * constructor
+	 * @param url
+	 */
+	public weiboAndtianya(long belongto,String url,String time,String context,String type) {
+		this.belongto=belongto;
+		this.url = url;
+		this.time = time;
+		this.context = context;
+		this.type = type;
+	}
+	public long getBelongto() {
 		return belongto;
 	}
-	String geturl()
-	{
+	public void setBelongto(long belongto) {
+		this.belongto = belongto;
+	}
+	public String getUrl() {
 		return url;
 	}
-	String gettime()
-	{
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	public String getTime() {
 		return time;
 	}
-	String getcontext()
-	{
+	public void setTime(String time) {
+		this.time = time;
+	}
+	public String getContext() {
 		return context;
 	}
-	String gettype()
-	{
+	public void setContext(String context) {
+		this.context = context;
+	}
+	public String getType() {
 		return type;
 	}
+	public void setType(String type) {
+		this.type = type;
+	}
 	
-	void setbelongto()
-	{
-		this.belongto=belongto;
-	}
-	void seturl()
-	{
-		this.url=url;
-	}
-	void settime()
-	{
-		this.time=time;
-	}
-	void setcontext()
-	{
-		this.context=context;
-	}
-	void settype()
-	{
-		this.type=type;
-	}
 }

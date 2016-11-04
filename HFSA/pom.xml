@@ -12,6 +12,7 @@
 		<aspectj.version>1.8.5</aspectj.version>
 		<mybatis.version>3.3.0</mybatis.version>
 		<druid.version>1.0.13</druid.version>
+    	<failOnMissingWebXml>false</failOnMissingWebXml>
 	</properties>
 
 	<dependencies>
@@ -122,9 +123,9 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/javax.servlet/jstl -->
 		<dependency>
-			<groupId>javax.servlet</groupId>
-			<artifactId>jstl</artifactId>
-			<version>1.2</version>
+		    <groupId>javax.servlet</groupId>
+		    <artifactId>jstl</artifactId>
+		    <version>1.2</version>
 		</dependency>
 	</dependencies>
 

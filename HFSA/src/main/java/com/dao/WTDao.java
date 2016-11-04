@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
 public interface WTDao {
 	/**
 	 * 
@@ -23,12 +25,7 @@ public interface WTDao {
 	 * 
 	 * @insert 微博（重复的无法插入）
 	 */
-	@InsertProvider(type=InsertProvider.class, method="insertWeibo")
-	public void insertWeibo(List<weiboAndtianya> list);
-	/**
-	 * 
-	 * @insert 天涯（重复的无法插入）
-	 */
-	@InsertProvider(type=InsertProvider.class, method="insertTianya")
-	public void insertTianya(List<weiboAndtianya> list);
+	@InsertProvider(type=wtProvider.class, method="insert")
+	public void insertWeiboandTianya(List<weiboAndtianya> list);
+	
 }

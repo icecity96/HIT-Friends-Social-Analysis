@@ -10,7 +10,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 public class DataSourceConfig {
 	//WHO 用来区分是小组谁在用，以控制数据库信息，请修改时只修改WHO的信息
 	//不要动源码内容
-	private final String WHO = "icecity";
+	private final String WHO = "lx";
 	@Bean
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -33,3 +33,4 @@ public class DataSourceConfig {
 		return dataSource;
 	}
 }
+

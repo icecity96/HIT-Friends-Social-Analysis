@@ -5,36 +5,39 @@ public class Friends {
 	private String friendname;
 	private String friendweibo;
 	private String friendtianya;
-	long getid()
-	{
+	
+	public Friends() {
+		// TODO Auto-generated constructor stub
+	}
+	public Friends(int id,String friendname,String friendweibo,String friendtianya) {
+		this.id = id;
+		this.friendname = friendname;
+		this.friendweibo = friendweibo;
+		this.friendtianya = friendtianya;
+	}
+	public long getId() {
 		return id;
 	}
-	String getfriendname()
-	{
+	public void setId(long id) {
+		this.id = id;
+	}
+	public String getFriendname() {
 		return friendname;
 	}
-	String getfriendweibo()
-	{
+	public void setFriendname(String friendname) {
+		this.friendname = friendname;
+	}
+	public String getFriendweibo() {
 		return friendweibo;
 	}
-	String getfriendtianya()
-	{
+	public void setFriendweibo(String friendweibo) {
+		this.friendweibo = friendweibo;
+	}
+	public String getFriendtianya() {
 		return friendtianya;
 	}
-	void setid()
-	{
-		this.id=id;
+	public void setFriendtianya(String friendtianya) {
+		this.friendtianya = friendtianya;
 	}
-	void setfriendname()
-	{
-		this.friendname=friendname;
-	}
-	void setfriendweibo()
-	{
-		this.friendweibo=friendweibo;
-	}
-	void setfriendtianya()
-	{
-		this.friendtianya=friendtianya;
-	}
+	
 }

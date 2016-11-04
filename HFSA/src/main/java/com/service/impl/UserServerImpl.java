@@ -1,8 +1,10 @@
 package com.service.impl;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +12,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import com.dao.UserDao;
+import com.dao.WTDao;
+import com.dao.FriendsDao;
 import com.po.User;
+import com.po.weiboAndtianya;
 import com.service.UserServer;
 
 @Service
 public class UserServerImpl implements UserServer {
 	@Autowired
 	private UserDao userDao;
+	@Autowired
+	public  WTDao wtdao;
+	@Autowired
+	public  FriendsDao fr;
 	
 	@Override
 	public User login(User user) {
@@ -36,6 +45,7 @@ public class UserServerImpl implements UserServer {
 				}
 			}
 		}
+		
 		return rsObj;
 	}
 
@@ -68,4 +78,9 @@ public class UserServerImpl implements UserServer {
 		return userDao.findByNicknameOrEmail(param) != null;
 	}
 
+	@Override
+	public void addWT(List<weiboAndtianya> list)
+	{
+		wtdao.insertWeiboandTianya(list);
+	}
 }
