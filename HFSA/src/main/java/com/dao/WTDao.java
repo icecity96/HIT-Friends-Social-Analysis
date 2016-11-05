@@ -4,28 +4,26 @@ import java.util.List;
 import com.po.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.InsertProvider;
 import org.apache.ibatis.annotations.Select;
-import org.springframework.stereotype.Repository;
 
 public interface WTDao {
 	/**
 	 * 
 	 * @return 所有不重复的微博url
 	 */
-	@Select("select distinct Wurl from weiboAndtianya where type='weibo'")
+	@Select("select distinct url from weiboAndtianya where type=weibo")
 	List<String> ReturnWeiboUrl();
 	/**
 	 * 
 	 * @return 所有不重复的天涯url
 	 */
-	@Select("select distinct Turl from weiboAndtianya where type='tianya'")
+	@Select("select distinct url from weiboAndtianya where type=tianya")
 	List<String> ReturnTianyaUrl();
 	/**
 	 * 
-	 * @insert 微博（重复的无法插入）
+	 * @insert 单条微博（重复的无法插入，捕捉DuplicateKeyException异常即可。） 
 	 */
-	@InsertProvider(type=wtProvider.class, method="insert")
-	public void insertWeiboandTianya(List<weiboAndtianya> list);
+	@Insert("insert into weiboandtianya values(#{wt.belongto},#{wt.url},#{wt.time},#{wt.context},#{wt.type})")
+	public void insertone(@Param("wt")weiboAndtianya wt);
 	
 }
