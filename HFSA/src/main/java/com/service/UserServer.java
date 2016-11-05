@@ -11,5 +11,6 @@ public interface UserServer {
 	public boolean userIsExist(User user);
 	public int register(User user);
 	public int addFriend(Friends friend);
+	public void updateFriend(Friends friend);
 	public List<weiboAndtianya> lastesMovements(int id);
 }

@@ -91,4 +91,8 @@ public class UserServerImpl implements UserServer {
 		return friendsDao.latestMovement(id);
 	}
 
+	@Override
+	public void updateFriend(Friends friend) {
+		
+	}
 }

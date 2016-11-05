@@ -89,7 +89,23 @@ public class LanguageAnalyseUtil {
 		connection.disconnect();
 		return result;
 	}
-	
+	/**
+	 * 格式化原始字符串，去除无关干扰词
+	 * @param text
+	 * @return 文档由词构成！
+	 * @throws IOException
+	 */
+	public static String rawString2FormatString(String text) throws IOException {
+		String POSresult = annlyseText(text, Pattern.POS, Format.PLAIN);
+		String formatString = "";
+		String[] words = POSresult.split(" ");
+		for (String word : words) {
+			if (word.contains("n") || word.contains("v")) {
+				formatString += word.split("_")[0] + " ";
+			}
+		}
+		return formatString;
+	}
 	/**
 	 * 将可能对正确提取核心谓语造成干扰的趋向动词排除。
 	 * @param text
@@ -147,7 +163,15 @@ public class LanguageAnalyseUtil {
 		String text;
 		Scanner scanner = new Scanner(System.in);
 		text=scanner.nextLine();
-		Set<String> set = getInterestingKeywordFromOneText(text);
-		System.out.println(set.toString());
+		String result = annlyseText(text, Pattern.POS, Format.PLAIN);
+		System.out.println(result);
+		String[] strings = result.split(" ");
+		String s = "";
+		for (String string : strings) {
+			if(string.contains("n") || string.contains("v")) {
+				s += string.split("_")[0]+" ";
+			}
+		}
+		System.out.println(s);
 	}
 }
