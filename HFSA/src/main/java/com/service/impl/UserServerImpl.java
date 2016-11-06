@@ -79,8 +79,12 @@ public class UserServerImpl implements UserServer {
 	}
 
 	@Override
-	public void addWT(List<weiboAndtianya> list)
+	public List<weiboAndtianya> latestMov(long id)
 	{
-		wtdao.insertWeiboandTianya(list);
+		fr.findfriend(id);
+		List<weiboAndtianya> ll=new ArrayList<weiboAndtianya>();
+		ll=fr.latestMovement();
+		fr.clean();
+		return ll;
 	}
 }

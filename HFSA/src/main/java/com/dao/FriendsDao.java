@@ -17,6 +17,8 @@ public interface FriendsDao {
 	
 	@Insert("insert into wturl select friendweibo,friendtianya from friends where id=#{id}")
 	public void findfriend(@Param("id")long id);
+	@Delete("delete from wturl")
+	public void clean();
 	
 	
 	/**
