@@ -11,13 +11,13 @@ public interface WTDao {
 	 * 
 	 * @return 所有不重复的微博url
 	 */
-	@Select("select distinct url from weiboAndtianya where type='weibo'")
+	@Select("select distinct friendweibo from friends ")
 	List<String> ReturnWeiboUrl();
 	/**
 	 * 
 	 * @return 所有不重复的天涯url
 	 */
-	@Select("select distinct url from weiboAndtianya where type='tianya'")
+	@Select("select distinct friendweibo from friends")
 	List<String> ReturnTianyaUrl();
 	/**
 	 * 

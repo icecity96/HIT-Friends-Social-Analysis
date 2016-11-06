@@ -1,7 +1,7 @@
 package com.po;
 
 public class weiboAndtianya {
-	private long belongto;//此属性是指此好友属于哪个用户，与用户id对应。
+	//此属性是指此好友属于哪个用户，与用户id对应。
 	private String url;
 	private String time;
 	private String context;
@@ -14,19 +14,14 @@ public class weiboAndtianya {
 	 * constructor
 	 * @param url
 	 */
-	public weiboAndtianya(long belongto,String url,String time,String context,String type) {
-		this.belongto=belongto;
+	public weiboAndtianya(String url,String time,String context,String type) {
+		
 		this.url = url;
 		this.time = time;
 		this.context = context;
 		this.type = type;
 	}
-	public long getBelongto() {
-		return belongto;
-	}
-	public void setBelongto(long belongto) {
-		this.belongto = belongto;
-	}
+	
 	public String getUrl() {
 		return url;
 	}

@@ -12,8 +12,13 @@ public interface FriendsDao {
 	 * 
 	 * @select 最新十条动态，不够十条就返回全部 并按照时间排序
 	 */
-	@Select("select * from weiboAndtianya where belongto=#{id} order by time limit 10")
-	public List<weiboAndtianya> latestMovement(@Param("id")long id);
+	@Select("select url,time,context,type from weiboandtianya inner join wturl wt on wt.weibourl=url or wt.tianyaurl=url order by time desc limit 100")
+	public List<weiboAndtianya> latestMovement();
+	
+	@Insert("insert into wturl select friendweibo,friendtianya from friends where id=#{id}")
+	public void findfriend(@Param("id")long id);
+	
+	
 	/**
 	 * 
 	 * @delete 好友 按照用户id和好友姓名来进行检索并删除
