@@ -1,6 +1,7 @@
 package com.service.impl;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -87,10 +88,21 @@ public class UserServerImpl implements UserServer {
 	}
 
 	@Override
-	public List<weiboAndtianya> lastesMovements(int id) {
-		return friendsDao.latestMovement(id);
+	public List<weiboAndtianya> latestMov(long id)
+	{
+		friendsDao.findfriend(id);
+		List<weiboAndtianya> ll=new ArrayList<weiboAndtianya>();
+		ll=friendsDao.latestMovement();
+		friendsDao.clean();
+		return ll;
 	}
 
+	
+	@Override
+	public void delFriend(int id, String friendName) {
+		friendsDao.deletefriend(friendName, id);
+	}
+	
 	@Override
 	public void updateFriend(Friends friend) {
 		

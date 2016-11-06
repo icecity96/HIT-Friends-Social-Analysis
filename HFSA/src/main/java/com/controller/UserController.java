@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.http.auth.AUTH;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -45,7 +46,7 @@ public class UserController {
 	@RequestMapping("/")
 	public ModelAndView hello() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("Login_v2");
+		modelAndView.setViewName("test");
 		return modelAndView;
 	}
 	//TODO:gaoxy
@@ -167,7 +168,19 @@ public class UserController {
 			request.setAttribute("msg", "该好友已存在");
 		} else {
 			request.setAttribute("msg", "成功添加好友");
+			if (friend.getFriendtianya() != null && !friend.getFriendtianya().isEmpty()) {
+				tianyaService.oneurlSpider(friend.getFriendtianya());
+			}
+			if (friend.getFriendweibo() != null && !friend.getFriendweibo().isEmpty()) {
+				weiboService.oneurlSpider(friend.getFriendweibo());
+			}
 		}
+	}
+	
+	@RequestMapping(value="/delFriends",method={RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody 
+	void delFriends(@RequestParam("id")int id,@RequestParam("name")String name) {
+		userServer.delFriend(id, name);
 	}
 	
 	/**
@@ -177,15 +190,13 @@ public class UserController {
 	@RequestMapping(value="/lastesMovements",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody 
 	void lastesMovements(@RequestParam("id")int id) {
-		request.setAttribute("friendsStatus", userServer.lastesMovements(id));
+		request.setAttribute("friendsStatus", userServer.latestMov(id));
 	}
 	
-	/**
-	 * 添加好友后建议使用钙函数刷新数据库，而不用等每小时刷新一次
-	 */
-	@RequestMapping(value="/spider")
+	@Scheduled(cron="0 3 */1 * * *")
 	public void SpiderForce() {
-		tianyaService.TianyaSpider();
 		weiboService.weiboSpider();
+		tianyaService.TianyaSpider();
 	}
+	
 }

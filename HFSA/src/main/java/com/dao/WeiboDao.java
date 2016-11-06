@@ -1,10 +1,10 @@
 package com.dao;
 
-import java.util.List;
-
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Repository;
+
 import weibo4j.model.Status;
 
 public interface WeiboDao {
@@ -29,5 +29,4 @@ public interface WeiboDao {
 	 */
 	@Select("select count(*) from status where userId=#{friendId}")
 	public int existUserId(@Param("friendId")long friendId);
-	public List<String> getAllUrlList();
 }

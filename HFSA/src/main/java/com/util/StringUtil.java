@@ -10,6 +10,10 @@ import java.util.regex.Pattern;
 
 import org.apache.bcel.generic.NEW;
 
+import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.Else;
+
+import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.Else;
+
 
 public class StringUtil {
 	private static final String ENGLISH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -56,7 +60,7 @@ public class StringUtil {
 		String[] ymdAndHM = rawTimeString.split("[ |\t]");
 		//change 13:21 to 1321
 		ymdAndHM[1] = ymdAndHM[1].replaceAll(":", "");
-		String timeRegex = "(((?<yyyy>\\d+)年)?((?<mm>\\d+)月)?((?<dd>\\d+)日)?)|(?<today>今天)|(?<yestoday>昨天)";
+		String timeRegex = "(((?<yyyy>\\d+)年)?((?<mm>\\d+)月)?((?<dd>\\d+)日)?)|(?<today>今天)|(?<yestoday>昨天)|(?<dbd>前天)";
 		Pattern pattern = Pattern.compile(timeRegex);
 		Matcher matcher = pattern.matcher(ymdAndHM[0]);
 		if (matcher.matches()) {
@@ -69,7 +73,12 @@ public class StringUtil {
 				Calendar calendar = Calendar.getInstance();	//系统当前时间
 				calendar.add(Calendar.DATE, -1);
 				ymdAndHM[0] = dateFormat.format(calendar.getTime());
-			} else {
+			} else if(matcher.group("dbd") != null){
+				SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
+				Calendar calendar = Calendar.getInstance();	//系统当前时间
+				calendar.add(Calendar.DATE, -2);
+				ymdAndHM[0] = dateFormat.format(calendar.getTime());
+			}else {
 				if (matcher.group("yyyy") == null) {
 					SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy");
 					ymdAndHM[0] = dateFormat.format(new Date());
@@ -80,6 +89,6 @@ public class StringUtil {
 						+ String.format("%02d", Integer.parseInt(matcher.group("dd")));
 			}
 		}
-		return ymdAndHM[0] + ymdAndHM[1];
+		return ymdAndHM[0] + ymdAndHM[1]+"00";
 	}
 }

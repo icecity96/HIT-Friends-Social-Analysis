@@ -10,4 +10,5 @@ public interface WeiboService {
 	public List<Status> getFriendsStatus(int userId);
 	public void saveFriendsStatus(int userId);
 	public void weiboSpider();
+	public void oneurlSpider(String url);
 }

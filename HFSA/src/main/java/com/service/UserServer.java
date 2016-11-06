@@ -12,5 +12,6 @@ public interface UserServer {
 	public int register(User user);
 	public int addFriend(Friends friend);
 	public void updateFriend(Friends friend);
-	public List<weiboAndtianya> lastesMovements(int id);
+	public void delFriend(int id,String friendName);
+	public List<weiboAndtianya> latestMov(long id);
 }

@@ -16,17 +16,18 @@
 	</properties>
 
 	<dependencies>
-		<!-- webmagic code4craft/webmagic · GitHub -->
 		<dependency>
-			<groupId>us.codecraft</groupId>
-			<artifactId>webmagic-core</artifactId>
-			<version>0.5.3</version>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>16.0.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.nd4j/nd4j-native -->
 		<dependency>
-			<groupId>us.codecraft</groupId>
-			<artifactId>webmagic-extension</artifactId>
-			<version>0.5.3</version>
+			<groupId>org.nd4j</groupId>
+			<artifactId>nd4j-native</artifactId>
+			<version>0.6.0</version>
 		</dependency>
+
 
 		<!-- https://mvnrepository.com/artifact/commons-httpclient/commons-httpclient -->
 		<dependency>
@@ -161,6 +162,21 @@
 			<artifactId>selenium-java</artifactId>
 			<version>3.0.1</version>
 		</dependency>
+		<!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-core -->
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-core</artifactId>
+			<version>0.6.0</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.deeplearning4j/deeplearning4j-nlp -->
+		<dependency>
+			<groupId>org.deeplearning4j</groupId>
+			<artifactId>deeplearning4j-nlp</artifactId>
+			<version>0.6.0</version>
+		</dependency>
+
+
 	</dependencies>
 
 	<build>
