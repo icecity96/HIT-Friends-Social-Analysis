@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import com.dao.FriendsDao;
 import com.dao.UserDao;
 import com.po.Friends;
+import com.po.Result;
 import com.po.User;
 import com.po.weiboAndtianya;
 import com.service.UserServer;
@@ -88,13 +89,17 @@ public class UserServerImpl implements UserServer {
 	}
 
 	@Override
-	public List<weiboAndtianya> latestMov(long id)
+	public List<Result> latestMov(long id)
 	{
 		friendsDao.findfriend(id);
 		List<weiboAndtianya> ll=new ArrayList<weiboAndtianya>();
+		List<Result> results = new ArrayList<>();
 		ll=friendsDao.latestMovement();
 		friendsDao.clean();
-		return ll;
+		for (weiboAndtianya weiboAndtianya : ll) {
+			results.add(new Result(weiboAndtianya, friendsDao.FindFriendByUrl(weiboAndtianya)));
+		}
+		return results;
 	}
 
 	

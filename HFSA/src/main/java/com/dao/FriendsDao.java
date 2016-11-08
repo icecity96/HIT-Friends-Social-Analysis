@@ -8,6 +8,10 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Select;
 
 public interface FriendsDao {
+	/**
+	 * 
+	 * @select 最新十条动态，不够十条就返回全部 并按照时间排序
+	 */
 	@Select("select url,time,context,type from weiboandtianya inner join wturl wt on wt.weibourl=url or wt.tianyaurl=url order by time desc limit 100")
 	public List<weiboAndtianya> latestMovement();
 	
@@ -15,6 +19,9 @@ public interface FriendsDao {
 	public void findfriend(@Param("id")long id);
 	@Delete("delete from wturl")
 	public void clean();
+	
+	@Select("select friendname from friends where friendweibo=#{mov.url} or friendtianya=#{mov.url}")
+	public String FindFriendByUrl(@Param("mov")weiboAndtianya mov);
 	/**
 	 * 
 	 * @delete 好友 按照用户id和好友姓名来进行检索并删除

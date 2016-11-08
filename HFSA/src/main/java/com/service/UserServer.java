@@ -3,6 +3,7 @@ package com.service;
 import java.util.List;
 
 import com.po.Friends;
+import com.po.Result;
 import com.po.User;
 import com.po.weiboAndtianya;
 
@@ -13,5 +14,5 @@ public interface UserServer {
 	public int addFriend(Friends friend);
 	public void updateFriend(Friends friend);
 	public void delFriend(int id,String friendName);
-	public List<weiboAndtianya> latestMov(long id);
+	public List<Result> latestMov(long id);
 }
