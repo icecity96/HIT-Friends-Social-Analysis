@@ -1,17 +1,28 @@
 package com.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.dao.AuthorzeDao;
+import com.dao.FriendsDao;
 import com.dao.UserDao;
+import com.dao.WTDao;
 import com.dao.WeiboDao;
+import com.po.weiboAndtianya;
 import com.service.WeiboService;
+import com.util.StringUtil;
+
 import weibo4j.Account;
 import weibo4j.Friendships;
 import weibo4j.Timeline;
@@ -28,6 +39,10 @@ public class WeiboServiceImpl implements WeiboService{
 	private AuthorzeDao authorzeDao;
 	@Autowired
 	private WeiboDao weiboDao;
+	@Autowired
+	private FriendsDao friendsDao;
+	@Autowired
+	private WTDao wtDao;
 	@Autowired
 	private UserDao userDao;
 	/**
@@ -88,16 +103,79 @@ public class WeiboServiceImpl implements WeiboService{
 		}
 	}
 	
-	/**
-	 * @author ice_city
-	 * 后台定时任务，每隔5分钟，执行一次，用于刷取好友动态
-	 */
-	@Scheduled(fixedDelay=300000)
-	public void updateFriendWeiboStatus() {
-		List<Integer> userIds = userDao.getAllUserId();
-		for (Integer integer : userIds) {
-			saveFriendsStatus(integer.intValue());
+	@Override
+	//@Scheduled(cron="0 0 */1 * *")	//Hope this will exec per hour
+	public void weiboSpider() {
+		List<String> urList = wtDao.ReturnWeiboUrl();
+		if (urList.isEmpty()) {
+			return;
 		}
+		List<weiboAndtianya> weiboAndtianyas = new ArrayList<weiboAndtianya>();
+		FirefoxDriver driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+		for (String url : urList) {
+			List<weiboAndtianya> weiboAndtianyas2 = weiboSingnal(driver, url);
+			weiboAndtianyas.addAll(weiboAndtianyas2);
+		}
+		driver.close();
+		driver.quit();
+		for (weiboAndtianya weiboAndtianya : weiboAndtianyas) {
+			try {
+				wtDao.insertone(weiboAndtianya);
+			} catch (Exception e) {
+				continue;
+			}	
+		}
+	}
+	
+	/**
+	 * 获取特定url地址的爬虫
+	 * @param driver
+	 * @param url
+	 * @return
+	 */
+	public List<weiboAndtianya> weiboSingnal(WebDriver driver,String url) {
+		List<weiboAndtianya> weiboAndtianyas = new ArrayList<weiboAndtianya>();
+		try {
+			driver.get(url);
+			WebElement wbFeed = driver.findElement(By.cssSelector("div[class*='WB_feed WB_feed_v3']"));
+	        List<WebElement> status = wbFeed.findElements(By.cssSelector("div[class*='WB_detail']"));
+	        for (WebElement statu : status) {
+				String time = statu.findElement(By.cssSelector("div[class*='WB_from S_txt2']"))
+						.findElement(By.cssSelector("a[target*='_blank']")).getAttribute("title");
+	        	time = time.replaceAll("[\t| |:|-]", "")+"00";
+				String context = statu.findElement(By.cssSelector("div[class*='WB_text']")).getText();
+				weiboAndtianyas.add(new weiboAndtianya(url, time, context, "weibo"));
+	        }
+		} catch (Exception e) {
+			return null;
+		}
+		return weiboAndtianyas;
+	}
+
+	@Override
+	public void oneurlSpider(String url) {
+		List<weiboAndtianya> weiboAndtianyas = new ArrayList<weiboAndtianya>();
+		//before this step make sure your firefox has installed
+		//in default location.And you have installed geckodriver
+		FirefoxDriver driver = new FirefoxDriver();
+		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);	
+		List<weiboAndtianya> weiboAndtianyas2 = weiboSingnal(driver, url);
+		try {
+			weiboAndtianyas.addAll(weiboAndtianyas2);
+		} catch (Exception e) {
+
+		}		
+		driver.close();
+		driver.quit();
+		for (weiboAndtianya weiboAndtianya : weiboAndtianyas) {
+			try {
+				wtDao.insertone(weiboAndtianya);
+			} catch (Exception e) {
+				continue;
+			}
+		}
+		
 	}
 	
 }

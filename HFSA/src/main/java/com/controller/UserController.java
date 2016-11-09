@@ -2,10 +2,14 @@ package com.controller;
 
 
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.http.auth.AUTH;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -13,8 +17,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.po.Friends;
 import com.po.User;
+import com.service.AuthorizeService;
+import com.service.TianyaService;
 import com.service.UserServer;
+import com.service.WeiboService;
+
+import weibo4j.Oauth;
+import weibo4j.http.AccessToken;
+import weibo4j.model.WeiboException;
 
 import weibo4j.model.WeiboException;
 
@@ -23,6 +35,12 @@ public class UserController {
 	@Autowired
 	private UserServer userServer;
 	@Autowired
+	private TianyaService tianyaService;
+	@Autowired
+	private WeiboService weiboService;
+	@Autowired
+	private AuthorizeService authorizeService;
+	@Autowired
 	private HttpServletRequest request;
 	@Autowired
 	private HttpSession session;
@@ -30,7 +48,7 @@ public class UserController {
 	@RequestMapping("/")
 	public ModelAndView hello() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("Login_v2");
+		modelAndView.setViewName("test");
 		return modelAndView;
 	}
 	//TODO:gaoxy
@@ -66,42 +84,6 @@ public class UserController {
 		return model;
 	}
 	
-	@RequestMapping(value="/HomePageSA",method={RequestMethod.POST, RequestMethod.GET})
-	public @ResponseBody 
-	ModelAndView login(@RequestParam("name")String id,
-						@RequestParam("password")String password,
-						 @RequestParam("code")String code) throws WeiboException{
-		//判断邮箱登录还是用户名登录
-		String email = null;
-		String nickname = null;
-		if (id.indexOf("@")>0) {
-			email = id;
-		} else {
-			nickname = id;
-		}
-		
-		User user = new User();
-		user.setEmail(email);
-		user.setNickname(nickname);
-		user.setPassword(password);
-		User rsUser = userServer.login(user);
-		ModelAndView model = new ModelAndView();
-		if (rsUser==null) {
-			//TODO:gaoxy
-			model.addObject("msg", "账号密码错误");
-			model.setViewName("Login_v2");
-			return model;
-		} else {
-			rsUser.setPassword("default");
-		}
-		session.setAttribute("userLogin", rsUser);
-		String userId = rsUser.getId().toString();
-		System.out.println(userId);
-		System.out.println(code);
-		AuthorizeController.saveAccessTokenByCode(code, userId);
-		model.setViewName("HomePage");
-		return model;
-	}
 	
 	//TODO:gaoxy
 	@RequestMapping(value="/register",method={RequestMethod.POST,RequestMethod.GET})
@@ -139,5 +121,48 @@ public class UserController {
 		}
 		return modelAndView;
 	}
-
+	
+	@RequestMapping(value="/addFriends",method={RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody 
+	void addFriends(@RequestParam("id")int id,
+						@RequestParam("name")String name,
+						@RequestParam("weibourl")String weibourl,
+						@RequestParam("tianyaurl")String tianyaurl) {
+		Friends friend = new Friends(id, name, weibourl, tianyaurl);
+		int code = userServer.addFriend(friend);
+		if (code==0) {
+			request.setAttribute("msg", "该好友已存在");
+		} else {
+			request.setAttribute("msg", "成功添加好友");
+			if (friend.getFriendtianya() != null && !friend.getFriendtianya().isEmpty()) {
+				tianyaService.oneurlSpider(friend.getFriendtianya());
+			}
+			if (friend.getFriendweibo() != null && !friend.getFriendweibo().isEmpty()) {
+				weiboService.oneurlSpider(friend.getFriendweibo());
+			}
+		}
+	}
+	
+	@RequestMapping(value="/delFriends",method={RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody 
+	void delFriends(@RequestParam("id")int id,@RequestParam("name")String name) {
+		userServer.delFriend(id, name);
+	}
+	
+	/**
+	 * 返回用户所有的好友的部分动态
+	 * @param id
+	 */
+	@RequestMapping(value="/lastesMovements",method={RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody 
+	void lastesMovements(@RequestParam("id")int id) {
+		request.setAttribute("friendsStatus", userServer.latestMov(id));
+	}
+	
+	@Scheduled(cron="0 3 */1 * * *")
+	public void SpiderForce() {
+		weiboService.weiboSpider();
+		tianyaService.TianyaSpider();
+	}
+	
 }
