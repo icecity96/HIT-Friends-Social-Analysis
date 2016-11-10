@@ -15,4 +15,5 @@ public interface UserServer {
 	public void updateFriend(Friends friend);
 	public void delFriend(int id,String friendName);
 	public List<Result> latestMov(long id);
+	public List<weiboAndtianya> getOneFrinedMov(long id,String friendName);
 }

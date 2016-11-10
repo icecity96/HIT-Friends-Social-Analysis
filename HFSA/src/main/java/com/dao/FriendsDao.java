@@ -12,11 +12,16 @@ public interface FriendsDao {
 	 * 
 	 * @select 最新十条动态，不够十条就返回全部 并按照时间排序
 	 */
+	
 	@Select("select url,time,context,type from weiboandtianya inner join wturl wt on wt.weibourl=url or wt.tianyaurl=url order by time desc limit 100")
 	public List<weiboAndtianya> latestMovement();
-	
+	//返回某人所有朋友动态所用//
 	@Insert("insert into wturl select friendweibo,friendtianya from friends where id=#{id}")
 	public void findfriend(@Param("id")long id);
+	//返回某个特定朋友//
+	@Insert("insert into wturl select friendweibo,friendtianya from friends where id=#{id} and friendname=#{friendname}")
+	public void findOnefriend(@Param("id")long id,@Param("friendname")String friendname);
+	//----------//
 	@Delete("delete from wturl")
 	public void clean();
 	
@@ -52,12 +57,7 @@ public interface FriendsDao {
 	 */
 	@Insert("insert into friends values(#{friend.id},#{friend.friendname},#{friend.friendweibo},#{friend.friendtianya})")
 	public void insertFriend(@Param("friend")Friends friend);
-	/**
-	 * 
-	 * 传入朋友的天涯和微博url 并以此取得所有动态
-	 */
-	@Select("select * from weiboAndtianya where url=#{wurl} or url={turl}")
-	public List<weiboAndtianya> returnFriendsMovement(@Param("wurl")String weibourl,@Param("turl")String tianyaurl);
+	
 	/**
 	 * 
 	 * 查询朋友是否存在，仅针对某一用户而言。因此参数为id和朋友name

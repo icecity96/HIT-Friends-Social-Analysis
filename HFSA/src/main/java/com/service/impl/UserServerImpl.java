@@ -112,4 +112,12 @@ public class UserServerImpl implements UserServer {
 	public void updateFriend(Friends friend) {
 		
 	}
+
+	@Override
+	public List<weiboAndtianya> getOneFrinedMov(long id, String friendName) {
+		friendsDao.findOnefriend(id, friendName);
+		List<weiboAndtianya> oneFriendMov = friendsDao.latestMovement();
+		friendsDao.clean();
+		return oneFriendMov;
+	}
 }
