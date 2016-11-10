@@ -59,6 +59,6 @@ public interface FriendsDao {
 	 * 
 	 * @return 所有friendname
 	 */
-	@Select("select friendname from friends where id=#{id}")
-	public List<String> allFriends(@Param("id")long id);
+	@Select("select * from friends where id=#{id}")
+	public List<Friends> allFriends(@Param("id")long id);
 }
