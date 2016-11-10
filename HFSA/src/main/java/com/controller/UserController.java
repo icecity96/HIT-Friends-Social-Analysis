@@ -48,7 +48,7 @@ public class UserController {
 	@RequestMapping("/")
 	public ModelAndView hello() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("test");
+		modelAndView.setViewName("Login");
 		return modelAndView;
 	}
 	//TODO:gaoxy
@@ -74,7 +74,7 @@ public class UserController {
 		if (rsUser==null) {
 			//TODO:gaoxy
 			model.addObject("msg", "账号密码错误");
-			model.setViewName("Login_v2");
+			model.setViewName("Login");
 			return model;
 		} else {
 			rsUser.setPassword("default");
@@ -153,11 +153,18 @@ public class UserController {
 	 * 返回用户所有的好友的部分动态
 	 * @param id
 	 */
-	@RequestMapping(value="/lastesMovements",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody 
-	void lastesMovements(@RequestParam("id")int id) {
-		request.setAttribute("friendsStatus", userServer.latestMov(id));
-	}
+//	@RequestMapping(value="/AllMessage",method={RequestMethod.POST,RequestMethod.GET})
+//	public @ResponseBody 
+//	void lastesMovements(@RequestParam("id")int id) {
+//		System.out.println(id);
+//		request.setAttribute("friendsStatus", userServer.latestMov(id));
+//	}
+//	
+//	@RequestMapping(value="/hello",method={RequestMethod.POST,RequestMethod.GET})
+//	public  @ResponseBody
+//	String test() {
+//		return "hello";
+//	}
 	
 	@Scheduled(cron="0 3 */1 * * *")
 	public void SpiderForce() {

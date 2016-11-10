@@ -37,8 +37,6 @@
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a class="J_menuItem" href="ProFile">个人资料</a>
                                 </li>
-                                <li><a href="Authorize">账号认证</a>
-                                </li>
                                 <li class="divider"></li>
                                 <li><a href="Login">安全退出</a>
                                 </li>
@@ -48,7 +46,7 @@
                         </div>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="AllMessage">
+                        <a class="J_menuItem" href="AllMessage?id=${userLogin.id }">
                             <i class="fa fa-home"></i>
                             <span class="nav-label">全部动态</span>
                         </a>
@@ -155,7 +153,7 @@
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content">
-                        <a href="javascript:;" class="active J_menuTab" data-id="AllMessage">全部动态</a>
+                        <a href="AllMessage?id=${userLogin.id }" class="active J_menuTab" data-id="AllMessage">全部动态</a>
                     </div>
                 </nav>
                 <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
@@ -177,7 +175,7 @@
                 <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
             </div>
             <div class="row J_mainContent" id="content-main">
-                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="AllMessage" frameborder="0" data-id="AllMessage" seamless></iframe>
+                <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="AllMessage?id=${userLogin.id }" frameborder="0" data-id="AllMessage" seamless></iframe>
             </div>
             <div class="footer">
                 <div class="pull-right">&copy; 2016 <a href="https://github.com/icecity96/HIT-Friends-Social-Analysis" target="_blank">HFSA</a>

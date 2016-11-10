@@ -1,10 +1,17 @@
 package com.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.service.UserServer;
 
 
 
@@ -14,13 +21,12 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 @RequestMapping(value="/",method={RequestMethod.GET,RequestMethod.POST})
 public class PageController {
-	@RequestMapping(value="/Authorize")
-	public @ResponseBody 
-	ModelAndView Identification(){
-		ModelAndView model = new ModelAndView();
-		model.setViewName("Authorize");
-		return model;
-	}
+	@Autowired
+	private UserServer userServer;
+	@Autowired
+	private HttpServletRequest request;
+	@Autowired
+	private HttpSession session;
 	
 	@RequestMapping(value="/ProFile")
 	public @ResponseBody 
@@ -34,30 +40,17 @@ public class PageController {
 	public @ResponseBody 
 	ModelAndView BacktoLogin(){
 		ModelAndView model = new ModelAndView();
-		model.setViewName("Login_v2");
-		return model;
-	}
-	
-	@RequestMapping(value="/ReLogin")
-	public @ResponseBody 
-	ModelAndView ReLogin(){
-		ModelAndView model = new ModelAndView();
-		model.setViewName("Login2");
-		return model;
-	}
-	
-	@RequestMapping(value="/SuccessAuthorize")
-	public @ResponseBody
-	ModelAndView SuccessConnectWEIBO(){
-		ModelAndView model = new ModelAndView();
-		model.setViewName("SuccessAuthorize");
+		model.setViewName("Login");
 		return model;
 	}
 	
 	@RequestMapping(value="/AllMessage")
 	public @ResponseBody 
-	ModelAndView ShowAllMessage(){
+	ModelAndView ShowAllMessage(@RequestParam("id")int id){
 		ModelAndView model = new ModelAndView();
+		System.out.println('1');
+		System.out.println(id);
+		request.setAttribute("friendsStatus", userServer.latestMov(id));
 		model.setViewName("AllMessage");
 		return model;
 	}
