@@ -153,6 +153,7 @@ public class UserController {
 	 * 返回用户所有的好友的部分动态
 	 * @param id
 	 */
+	
 //	@RequestMapping(value="/AllMessage",method={RequestMethod.POST,RequestMethod.GET})
 //	public @ResponseBody 
 //	void lastesMovements(@RequestParam("id")int id) {
