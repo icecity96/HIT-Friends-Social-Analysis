@@ -11,6 +11,7 @@ import org.apache.http.auth.AUTH;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -167,7 +168,16 @@ public class UserController {
 //		return "hello";
 //	}
 	
-	@Scheduled(cron="0 3 */1 * * *")
+	/**
+	 * 获取特定好友的所有动态
+	 */
+	@RequestMapping(value="/onefriendmov",method={RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody
+	void getOneFriendMov(@RequestParam("id")int id,@RequestParam("friendName")String friendName) {
+		request.setAttribute(friendName+"mov", userServer.getOneFrinedMov(id, friendName));
+	}
+	
+	//@Scheduled(cron="0 3 */1 * * *")
 	public void SpiderForce() {
 		weiboService.weiboSpider();
 		tianyaService.TianyaSpider();
