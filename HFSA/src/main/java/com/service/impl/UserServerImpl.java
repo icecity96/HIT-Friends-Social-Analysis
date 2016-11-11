@@ -120,4 +120,9 @@ public class UserServerImpl implements UserServer {
 		friendsDao.clean();
 		return oneFriendMov;
 	}
+
+	@Override
+	public List<Friends> getFriendList(long id) {
+		return friendsDao.allFriends(id);
+	}
 }

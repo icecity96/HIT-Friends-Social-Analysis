@@ -203,6 +203,12 @@ public class UserController {
 		request.setAttribute(friendName+"mov", userServer.getOneFrinedMov(id, friendName));
 	}
 	
+	@RequestMapping(value="/friendList",method={RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody
+	void getAllFriend(@RequestParam("id")int id) {
+		request.setAttribute("friendList", userServer.getFriendList(id));
+	}
+	
 	//@Scheduled(cron="0 3 */1 * * *")
 	public void SpiderForce() {
 		weiboService.weiboSpider();

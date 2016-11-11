@@ -13,7 +13,7 @@ public interface FriendsDao {
 	 * @select 最新十条动态，不够十条就返回全部 并按照时间排序
 	 */
 	
-	@Select("select url,time,context,type from weiboandtianya inner join wturl wt on wt.weibourl=url or wt.tianyaurl=url order by time desc limit 100")
+	@Select("select url,time,context,type,topic from weiboandtianya inner join wturl wt on wt.weibourl=url or wt.tianyaurl=url order by time desc limit 100")
 	public List<weiboAndtianya> latestMovement();
 	//返回某人所有朋友动态所用//
 	@Insert("insert into wturl select friendweibo,friendtianya from friends where id=#{id}")
@@ -36,21 +36,12 @@ public interface FriendsDao {
 	/**
 	 * 
 	 * @update 改变好友名称 也是按照用户id和好友原名检索修改
+	 * 5个参数分别指：之前的名字prename  新名字newname  用户id 新微博newweibo  新天涯newtianya
 	 */
-	@Update("update friends set friendname=#{newname} where friendname=#{prename} and id=#{id}")
-	public void changeFriendname(@Param("prename")String prename,@Param("newname")String newname,@Param("id")long id);
-	/**
-	 * 
-	 * 同上 改微博url
-	 */
-	@Update("update friends set friendweibo=#{newweibo} where friendweibo=#{preweibo} and id=#{id}")
-	public void changeFriendweibo(@Param("preweibo")String preweibo,@Param("newweibo")String newweibo,@Param("id")long id);
-	/**
-	 * 
-	 * 同上 改变天涯url
-	 */
-	@Update("update friends set friendtianya=#{newtianya} where friendtianya=#{pretianya} and id=#{id}")
-	public void changeFriendtianya(@Param("pretianya")String pretianya,@Param("newtianya")String newtianya,@Param("id")long id);
+	
+	@Update("update friends set friendname=#{newname},friendweibo=#{newweibo},friendtianya=#{newtianya} where friendname=#{prename} and id=#{id}")
+	public void changeFriend(@Param("prename")String prename,@Param("newname")String newname,@Param("id")long id,@Param("newweibo")String newweibo,@Param("newtianya")String newtianya);
+	
 	/**
 	 * 
 	 * @insert 把朋友实体类插入数据库
@@ -68,6 +59,6 @@ public interface FriendsDao {
 	 * 
 	 * @return 所有friendname
 	 */
-	@Select("select friendname from friends where id=#{id}")
-	public List<String> allFriends(@Param("id")long id);
+	@Select("select * from friends where id=#{id}")
+	public List<Friends> allFriends(@Param("id")long id);
 }

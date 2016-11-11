@@ -71,7 +71,8 @@ public class TianyaServiceImpl implements TianyaService{
 				String timeString = statu.findElement(By.cssSelector("a[target*='_blank']")).getText();
 				timeString = StringUtil.parseTianYatime(timeString);
 				String context = statu.findElement(By.className("article")).getText();
-				weiboAndtianyas.add(new weiboAndtianya(url,timeString,context,"tianya"));
+				int topic = StringUtil.getTopic(context);
+				weiboAndtianyas.add(new weiboAndtianya(url,timeString,context,"tianya",topic));
 			}
 		} catch (Exception e) {
 			return null;

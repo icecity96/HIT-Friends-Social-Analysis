@@ -145,7 +145,8 @@ public class WeiboServiceImpl implements WeiboService{
 						.findElement(By.cssSelector("a[target*='_blank']")).getAttribute("title");
 	        	time = time.replaceAll("[\t| |:|-]", "")+"00";
 				String context = statu.findElement(By.cssSelector("div[class*='WB_text']")).getText();
-				weiboAndtianyas.add(new weiboAndtianya(url, time, context, "weibo"));
+				int topic = StringUtil.getTopic(context);
+				weiboAndtianyas.add(new weiboAndtianya(url, time, context, "weibo",topic));
 	        }
 		} catch (Exception e) {
 			return null;

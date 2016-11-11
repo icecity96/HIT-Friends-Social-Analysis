@@ -27,7 +27,10 @@ public class Vocabulary {
 	public void setId2wordMap(String[] id2wordMap) {
 		this.id2wordMap = id2wordMap;
 	}
-
+	public Vocabulary(Map<String, Integer> word2idMap,String[] id2wordMap) {
+		this.id2wordMap = id2wordMap;
+		this.word2idMap = word2idMap;
+	}
 	public Vocabulary() {
 		word2idMap = new TreeMap<String,Integer>();
 		id2wordMap = new String[1024];

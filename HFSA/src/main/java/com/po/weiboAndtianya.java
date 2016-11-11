@@ -1,10 +1,12 @@
 package com.po;
 
 public class weiboAndtianya {
+	//此属性是指此好友属于哪个用户，与用户id对应。
 	private String url;
 	private String time;
 	private String context;
 	private String type;//用以区分微博和天涯
+	private int topic;//兴趣分类
 	
 	public weiboAndtianya() {
 		// TODO Auto-generated constructor stub
@@ -13,11 +15,13 @@ public class weiboAndtianya {
 	 * constructor
 	 * @param url
 	 */
-	public weiboAndtianya(String url,String time,String context,String type) {
+	public weiboAndtianya(String url,String time,String context,String type,int topic) {
+		
 		this.url = url;
 		this.time = time;
 		this.context = context;
 		this.type = type;
+		this.topic=topic;
 	}
 	
 	public String getUrl() {
@@ -44,5 +48,12 @@ public class weiboAndtianya {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
+	public int getTopic()
+	{
+		return topic;
+	}
+	public void setTopic(int topic)
+	{
+		this.topic=topic;
+	}
 }
