@@ -102,7 +102,17 @@ public class UserServerImpl implements UserServer {
 		return results;
 	}
 
-	
+	@Override
+	public List<Result> getOneFrinedMov(long id, String friendName) {
+		friendsDao.findOnefriend(id, friendName);
+		List<weiboAndtianya> oneFriendMov = friendsDao.latestMovement();
+		friendsDao.clean();
+		List<Result> results = new ArrayList<>();
+		for (weiboAndtianya weiboAndtianya : oneFriendMov) {
+			results.add(new Result(weiboAndtianya, friendName));
+		}
+		return results;
+	}
 	@Override
 	public void delFriend(int id, String friendName) {
 		friendsDao.deletefriend(friendName, id);
@@ -114,10 +124,7 @@ public class UserServerImpl implements UserServer {
 	}
 
 	@Override
-	public List<weiboAndtianya> getOneFrinedMov(long id, String friendName) {
-		friendsDao.findOnefriend(id, friendName);
-		List<weiboAndtianya> oneFriendMov = friendsDao.latestMovement();
-		friendsDao.clean();
-		return oneFriendMov;
+	public List<Friends> getFriendList(long id) {
+		return friendsDao.allFriends(id);
 	}
 }
