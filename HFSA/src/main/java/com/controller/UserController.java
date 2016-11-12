@@ -2,6 +2,8 @@ package com.controller;
 
 
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -162,7 +164,7 @@ public class UserController {
 	void addFriends(@RequestParam("id")int id,
 						@RequestParam("name")String name,
 						@RequestParam("weibourl")String weibourl,
-						@RequestParam("tianyaurl")String tianyaurl) {
+						@RequestParam("tianyaurl")String tianyaurl) throws FileNotFoundException, ClassNotFoundException, IOException {
 		Friends friend = new Friends(id, name, weibourl, tianyaurl);
 		int code = userServer.addFriend(friend);
 		if (code==0) {
@@ -210,7 +212,7 @@ public class UserController {
 	}
 	
 	//@Scheduled(cron="0 3 */1 * * *")
-	public void SpiderForce() {
+	public void SpiderForce() throws FileNotFoundException, ClassNotFoundException, IOException {
 		weiboService.weiboSpider();
 		tianyaService.TianyaSpider();
 	}

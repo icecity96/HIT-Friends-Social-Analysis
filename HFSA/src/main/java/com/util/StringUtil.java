@@ -1,5 +1,6 @@
 package com.util;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.util.regex.Pattern;
 import org.ansj.domain.Term;
 import org.ansj.splitWord.analysis.ToAnalysis;
 import org.apache.bcel.generic.NEW;
+import org.springframework.util.ResourceUtils;
 
 import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.Else;
 import com.util.ldautil.LdaGibbsSampler;
@@ -122,16 +124,16 @@ public class StringUtil {
 	 */
 	public static int getTopic(String context) throws FileNotFoundException, IOException, ClassNotFoundException {
 		//load phi
-		ObjectInputStream phiObjectInputStream = new ObjectInputStream(new FileInputStream("data/phi2.data"));
+		ObjectInputStream phiObjectInputStream = new ObjectInputStream(StringUtil.class.getClassLoader().getResourceAsStream("data/phi2.data"));
 		double[][] phi = (double[][])phiObjectInputStream.readObject();
 		phiObjectInputStream.close();
 		//finish loading phi
 		
 		//load vocabulary
-		ObjectInputStream id2wordInputStream = new ObjectInputStream(new FileInputStream("data/id2wordMap"));
+		ObjectInputStream id2wordInputStream = new ObjectInputStream(StringUtil.class.getClassLoader().getResourceAsStream("data/id2wordMap"));
 		String[] id2wordMap = (String[])id2wordInputStream.readObject();
 		id2wordInputStream.close();
-		ObjectInputStream word2idInputStream = new ObjectInputStream(new FileInputStream("data/word2idMap"));
+		ObjectInputStream word2idInputStream = new ObjectInputStream(StringUtil.class.getClassLoader().getResourceAsStream("data/word2idMap"));
 		Map<String, Integer> word2idMap = (Map<String, Integer>)word2idInputStream.readObject();
 		word2idInputStream.close();
 		Vocabulary vocabulary = new Vocabulary(word2idMap, id2wordMap);

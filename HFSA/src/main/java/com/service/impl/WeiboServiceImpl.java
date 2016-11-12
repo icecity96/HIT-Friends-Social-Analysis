@@ -1,5 +1,7 @@
 package com.service.impl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +21,7 @@ import com.dao.FriendsDao;
 import com.dao.UserDao;
 import com.dao.WTDao;
 import com.dao.WeiboDao;
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.po.weiboAndtianya;
 import com.service.WeiboService;
 import com.util.StringUtil;
@@ -105,7 +108,7 @@ public class WeiboServiceImpl implements WeiboService{
 	
 	@Override
 	//@Scheduled(cron="0 0 */1 * *")	//Hope this will exec per hour
-	public void weiboSpider() {
+	public void weiboSpider() throws FileNotFoundException, ClassNotFoundException, IOException {
 		List<String> urList = wtDao.ReturnWeiboUrl();
 		if (urList.isEmpty()) {
 			return;
@@ -133,8 +136,11 @@ public class WeiboServiceImpl implements WeiboService{
 	 * @param driver
 	 * @param url
 	 * @return
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 */
-	public List<weiboAndtianya> weiboSingnal(WebDriver driver,String url) {
+	public List<weiboAndtianya> weiboSingnal(WebDriver driver,String url) throws FileNotFoundException, ClassNotFoundException, IOException {
 		List<weiboAndtianya> weiboAndtianyas = new ArrayList<weiboAndtianya>();
 		try {
 			driver.get(url);
@@ -148,27 +154,28 @@ public class WeiboServiceImpl implements WeiboService{
 				int topic = StringUtil.getTopic(context);
 				weiboAndtianyas.add(new weiboAndtianya(url, time, context, "weibo",topic));
 	        }
-		} catch (Exception e) {
+		} catch (ElementNotFoundException e) {
+			e.printStackTrace();
 			return null;
 		}
 		return weiboAndtianyas;
 	}
 
 	@Override
-	public void oneurlSpider(String url) {
+	public void oneurlSpider(String url) throws FileNotFoundException, ClassNotFoundException, IOException {
 		List<weiboAndtianya> weiboAndtianyas = new ArrayList<weiboAndtianya>();
 		//before this step make sure your firefox has installed
 		//in default location.And you have installed geckodriver
 		FirefoxDriver driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);	
 		List<weiboAndtianya> weiboAndtianyas2 = weiboSingnal(driver, url);
+		driver.close();
+		driver.quit();
 		try {
 			weiboAndtianyas.addAll(weiboAndtianyas2);
 		} catch (Exception e) {
-
+			return ;
 		}		
-		driver.close();
-		driver.quit();
 		for (weiboAndtianya weiboAndtianya : weiboAndtianyas) {
 			try {
 				wtDao.insertone(weiboAndtianya);

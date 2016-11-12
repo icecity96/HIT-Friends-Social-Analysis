@@ -1,5 +1,7 @@
 package com.service.impl;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +15,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.dao.WTDao;
+import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.po.weiboAndtianya;
 import com.service.TianyaService;
 import com.util.StringUtil;
@@ -23,7 +26,7 @@ public class TianyaServiceImpl implements TianyaService{
 	private WTDao wtDao;
 	@Override
 	//@Scheduled(cron="0 0 */1 * *")
-	public void TianyaSpider() {
+	public void TianyaSpider() throws FileNotFoundException, ClassNotFoundException, IOException {
 		List<String> tianYaURL = wtDao.ReturnTianyaUrl();
 		//空直接退出
 		if (tianYaURL.isEmpty()) {
@@ -53,8 +56,11 @@ public class TianyaServiceImpl implements TianyaService{
 	 * @param driver
 	 * @param url
 	 * @return
+	 * @throws IOException 
+	 * @throws ClassNotFoundException 
+	 * @throws FileNotFoundException 
 	 */
-	public List<weiboAndtianya> tianyaSingnal(WebDriver driver,String url) {
+	public List<weiboAndtianya> tianyaSingnal(WebDriver driver,String url) throws FileNotFoundException, ClassNotFoundException, IOException {
 		List<weiboAndtianya> weiboAndtianyas = new ArrayList<weiboAndtianya>();
 		try {
 			driver.get(url);
@@ -71,25 +77,29 @@ public class TianyaServiceImpl implements TianyaService{
 				String timeString = statu.findElement(By.cssSelector("a[target*='_blank']")).getText();
 				timeString = StringUtil.parseTianYatime(timeString);
 				String context = statu.findElement(By.className("article")).getText();
-				int topic = StringUtil.getTopic(context);
+				int topic = -1;
+				topic = StringUtil.getTopic(context);
 				weiboAndtianyas.add(new weiboAndtianya(url,timeString,context,"tianya",topic));
 			}
-		} catch (Exception e) {
+		} catch (ElementNotFoundException e) {
 			return null;
 		}
 		return weiboAndtianyas;
 	}
 	@Override
-	public void oneurlSpider(String url) {
+	public void oneurlSpider(String url) throws FileNotFoundException, ClassNotFoundException, IOException {
 		List<weiboAndtianya> weiboAndtianyas = new ArrayList<weiboAndtianya>();
 		//before this step make sure your firefox has installed
 		//in default location.And you have installed geckodriver
 		FirefoxDriver driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);	
 		List<weiboAndtianya> weiboAndtianyas2 = tianyaSingnal(driver, url);
-		weiboAndtianyas.addAll(weiboAndtianyas2);
 		driver.close();
 		driver.quit();
+		if (weiboAndtianyas2 == null) {
+			return;
+		}
+		weiboAndtianyas.addAll(weiboAndtianyas2);
 		for (weiboAndtianya weiboAndtianya : weiboAndtianyas) {
 			try {
 				wtDao.insertone(weiboAndtianya);
