@@ -4,6 +4,8 @@ package com.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.po.Friends;
+import com.po.Result;
 import com.po.User;
 import com.service.TianyaService;
 import com.service.UserServer;
@@ -153,7 +156,10 @@ public class UserController {
 	@RequestMapping(value="/onefriendmov",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody
 	void getOneFriendMov(@RequestParam("id")int id,@RequestParam("friendName")String friendName) {
-		request.setAttribute(friendName+"mov", userServer.getOneFrinedMov(id, friendName));
+		List<Result> friendMov = userServer.getOneFrinedMov(id, friendName);
+		request.setAttribute(friendName+"mov", friendMov);
+		request.setAttribute("frendtopic", userServer.getFriendTopic(friendMov));
+		request.setAttribute("weekMov", userServer.getWeekMov(friendMov));
 	}
 	
 	@RequestMapping(value="/friendList",method={RequestMethod.POST,RequestMethod.GET})

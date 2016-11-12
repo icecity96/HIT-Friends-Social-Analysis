@@ -2,13 +2,16 @@ package com.service.impl;
 
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -130,5 +133,39 @@ public class UserServerImpl implements UserServer {
 	@Override
 	public List<Friends> getFriendList(long id) {
 		return friendsDao.allFriends(id);
+	}
+
+	@Override
+	public int[] getFriendTopic(List<Result> friendMov) {
+		int[] result = new int[10];
+		for (int i = 0, j = 0; i < friendMov.size() && j <= 100; i++,j++) {
+			result[friendMov.get(i).getStatu().getTopic()]++;
+		}
+		return result;
+	}
+
+	@Override
+	public int[] getWeekMov(List<Result> friendMov) {
+		int[] result = new int[7];
+		Date date = new Date();
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(date);
+		calendar.add(calendar.DAY_OF_YEAR, -7);
+		int p = calendar.get(calendar.DAY_OF_YEAR);
+		date = calendar.getTime();
+		for (Result mov : friendMov) {
+			String time = mov.getStatu().getTime();
+			Date movdate = new Date(time);
+			calendar.setTime(movdate);
+			calendar.add(calendar.DAY_OF_YEAR, 0);
+			int pmov = calendar.get(calendar.DAY_OF_YEAR);
+			movdate = calendar.getTime();
+			if (movdate.before(date)) {
+				break;
+			} else {
+				result[pmov-p]++;
+			}
+		}
+		return result;
 	}
 }

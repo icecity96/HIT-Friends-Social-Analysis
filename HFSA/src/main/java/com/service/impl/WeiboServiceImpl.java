@@ -13,8 +13,6 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.dao.FriendsDao;
-import com.dao.UserDao;
 import com.dao.WTDao;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.po.weiboAndtianya;
@@ -33,6 +31,7 @@ public class WeiboServiceImpl implements WeiboService{
 		}
 		List<weiboAndtianya> weiboAndtianyas = new ArrayList<weiboAndtianya>();
 		FirefoxDriver driver = new FirefoxDriver();
+		//PhantomJSDriver driver = new PhantomJSDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		for (String url : urList) {
 			List<weiboAndtianya> weiboAndtianyas2 = weiboSingnal(driver, url);

@@ -17,4 +17,6 @@ public interface UserServer {
 	public List<Result> latestMov(long id);
 	public List<Result> getOneFrinedMov(long id,String friendName);
 	public List<Friends> getFriendList(long id);
+	public int[] getFriendTopic(List<Result> friendMov);
+	public int[] getWeekMov(List<Result> friendMov);
 }
