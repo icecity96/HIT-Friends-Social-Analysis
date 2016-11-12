@@ -2,6 +2,8 @@ package com.service.impl;
 
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -99,6 +101,7 @@ public class UserServerImpl implements UserServer {
 		for (weiboAndtianya weiboAndtianya : ll) {
 			results.add(new Result(weiboAndtianya, friendsDao.FindFriendByUrl(weiboAndtianya)));
 		}
+		Collections.sort(results);
 		return results;
 	}
 
@@ -111,6 +114,7 @@ public class UserServerImpl implements UserServer {
 		for (weiboAndtianya weiboAndtianya : oneFriendMov) {
 			results.add(new Result(weiboAndtianya, friendName));
 		}
+		Collections.sort(results);
 		return results;
 	}
 	@Override

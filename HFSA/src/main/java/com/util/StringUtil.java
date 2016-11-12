@@ -22,6 +22,7 @@ import org.apache.bcel.generic.NEW;
 import org.springframework.util.ResourceUtils;
 
 import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.Else;
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion.Static;
 import com.util.ldautil.LdaGibbsSampler;
 import com.util.ldautil.LdaUtil;
 import com.util.ldautil.Vocabulary;
@@ -30,7 +31,10 @@ import com.alibaba.druid.sql.dialect.oracle.ast.stmt.OracleIfStatement.Else;
 
 public class StringUtil {
 	private static final String ENGLISH_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	
+	private static double[][] phi;
+	private static String[] id2wordMap;
+	private static Map<String, Integer> word2idMap;
+	private static boolean flag = false;
 	/**
 	 * 根据首字母或者汉字来绘制头像
 	 * @param nickname
@@ -123,19 +127,22 @@ public class StringUtil {
 	 * @throws ClassNotFoundException 
 	 */
 	public static int getTopic(String context) throws FileNotFoundException, IOException, ClassNotFoundException {
-		//load phi
-		ObjectInputStream phiObjectInputStream = new ObjectInputStream(StringUtil.class.getClassLoader().getResourceAsStream("data/phi2.data"));
-		double[][] phi = (double[][])phiObjectInputStream.readObject();
-		phiObjectInputStream.close();
-		//finish loading phi
-		
-		//load vocabulary
-		ObjectInputStream id2wordInputStream = new ObjectInputStream(StringUtil.class.getClassLoader().getResourceAsStream("data/id2wordMap"));
-		String[] id2wordMap = (String[])id2wordInputStream.readObject();
-		id2wordInputStream.close();
-		ObjectInputStream word2idInputStream = new ObjectInputStream(StringUtil.class.getClassLoader().getResourceAsStream("data/word2idMap"));
-		Map<String, Integer> word2idMap = (Map<String, Integer>)word2idInputStream.readObject();
-		word2idInputStream.close();
+		if (flag == false) {
+			//load phi
+			ObjectInputStream phiObjectInputStream = new ObjectInputStream(StringUtil.class.getClassLoader().getResourceAsStream("data/phi2.data"));
+			phi = (double[][])phiObjectInputStream.readObject();
+			phiObjectInputStream.close();
+			//finish loading phi
+			
+			//load vocabulary
+			ObjectInputStream id2wordInputStream = new ObjectInputStream(StringUtil.class.getClassLoader().getResourceAsStream("data/id2wordMap"));
+			id2wordMap = (String[])id2wordInputStream.readObject();
+			id2wordInputStream.close();
+			ObjectInputStream word2idInputStream = new ObjectInputStream(StringUtil.class.getClassLoader().getResourceAsStream("data/word2idMap"));
+			word2idMap = (Map<String, Integer>)word2idInputStream.readObject();
+			word2idInputStream.close();
+			 flag = true;
+		}	
 		Vocabulary vocabulary = new Vocabulary(word2idMap, id2wordMap);
 		//finish construct vocabulary
 		
@@ -147,9 +154,7 @@ public class StringUtil {
 			if (term.natrue().equals(term.natrue().NULL)) {
 				continue;
 			}
-			if (term.getNatureStr().contains("n") || term.getNatureStr().contains("v")) {
-				rString += term.getName() + " ";
-			}
+			rString += term.getName() + " ";
 		}
 		
 		//预处理结果进一步切割，提取,并形成文档
