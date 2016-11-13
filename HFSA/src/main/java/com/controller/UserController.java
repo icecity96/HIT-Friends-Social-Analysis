@@ -125,13 +125,19 @@ public class UserController {
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/addFriends",method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/tianjia",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody 
 	void addFriends(@RequestParam("id")int id,
 						@RequestParam("name")String name,
 						@RequestParam("weibourl")String weibourl,
 						@RequestParam("tianyaurl")String tianyaurl) throws FileNotFoundException, ClassNotFoundException, IOException {
+		System.out.println('1');
+		System.out.println(id);
+		System.out.println(name);
+		System.out.println(weibourl);
+		System.out.println(tianyaurl);
 		Friends friend = new Friends(id, name, weibourl, tianyaurl);
+		System.out.println(friend.getFriendname());
 		int code = userServer.addFriend(friend);
 		if (code==0) {
 			request.setAttribute("msg", "该好友已存在");
@@ -148,8 +154,12 @@ public class UserController {
 	
 	@RequestMapping(value="/delFriends",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody 
-	void delFriends(@RequestParam("id")int id,@RequestParam("name")String name) {
+	ModelAndView delFriends(@RequestParam("id")int id,@RequestParam("name")String name) {
 		userServer.delFriend(id, name);
+		ModelAndView model = new ModelAndView();
+		request.setAttribute("friendList", userServer.getFriendList(id));
+		model.setViewName("FriendsList");
+		return model;
 	}
 	
 	/**
@@ -173,17 +183,17 @@ public class UserController {
 	/**
 	 * 获取特定好友的所有动态
 	 */
-	@RequestMapping(value="/onefriendmov",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody
-	void getOneFriendMov(@RequestParam("id")int id,@RequestParam("friendName")String friendName) {
-		request.setAttribute(friendName+"mov", userServer.getOneFrinedMov(id, friendName));
-	}
+//	@RequestMapping(value="/onefriendmov",method={RequestMethod.POST,RequestMethod.GET})
+//	public @ResponseBody
+//	void getOneFriendMov(@RequestParam("id")int id,@RequestParam("friendName")String friendName) {
+//		request.setAttribute(friendName+"mov", userServer.getOneFrinedMov(id, friendName));
+//	}
 	
-	@RequestMapping(value="/friendList",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody
-	void getAllFriend(@RequestParam("id")int id) {
-		request.setAttribute("friendList", userServer.getFriendList(id));
-	}
+//	@RequestMapping(value="/friendList",method={RequestMethod.POST,RequestMethod.GET})
+//	public @ResponseBody
+//	void getAllFriend(@RequestParam("id")int id) {
+//		request.setAttribute("friendList", userServer.getFriendList(id));
+//	}
 	
 	//@Scheduled(cron="0 3 */1 * * *")
 	public void SpiderForce() throws FileNotFoundException, ClassNotFoundException, IOException {

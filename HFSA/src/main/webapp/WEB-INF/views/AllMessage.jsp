@@ -14,14 +14,14 @@
 <link href="css/style.min.css" rel="stylesheet">
 </head>
 <body>
-<body class="gray-bg" onload="loaddata()">
+<body class="gray-bg">
 	<div class="wrapper wrapper-content  animated fadeInRight">
 		<div class="row">
-			<div class="col-sm-6">
+			<div class="col-sm-10">
 				<c:forEach items="${friendsStatus}" var="friendstatus">
 					<div class="social-feed-separated">
 						<div class="social-avatar">
-							<a href="default.htm"> <img alt="image" src="img/a5.jpg">
+							<a href="SpecificFriend?id=${userLogin.id }&friendName=${friendstatus.name }"> <img alt="image" src="img/a8.jpg">
 							</a>
 						</div>
 						<div class="social-feed-box">
@@ -34,7 +34,7 @@
 								</ul>
 							</div>
 							<div class="social-avatar">
-								<a href="#">${friendstaus.name }</a> <small class="text-muted">${friendstatus.statu.time }</small>
+								<a href="SpecificFriend?id=${userLogin.id }&friendName=${friendstatus.name }">${friendstatus.name }</a> <small class="text-muted">${friendstatus.statu.time }</small>
 							</div>
 							<div class="social-body">
 								<p>${friendstatus.statu.context }</p>

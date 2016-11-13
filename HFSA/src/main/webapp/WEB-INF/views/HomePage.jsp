@@ -36,6 +36,7 @@
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a class="J_menuItem" href="ProFile">个人资料</a>
+                                <li><a class="J_menuItem" href="test">test</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li><a href="Login">安全退出</a>
@@ -48,13 +49,13 @@
                     <li>
                         <a class="J_menuItem" href="AllMessage?id=${userLogin.id }">
                             <i class="fa fa-home"></i>
-                            <span class="nav-label">全部动态</span>
+                            <span class="nav-label">动态</span>
                         </a>
                     </li>
                     <li>
-                        <a class="J_menuItem" href="FriendsList">
+                        <a class="J_menuItem" href="FriendsList?id=${userLogin.id }">
 	                        <i class="fa fa-columns"></i>
-	                        <span class="nav-label">好友列表</span>
+	                        <span class="nav-label">我的好友</span>
                         </a>
                     </li>
 					<li>
@@ -63,19 +64,6 @@
 	                        <span class="nav-label">添加关注</span>
                         </a>
                     </li>
-                    <li>
-                        <a href="mailbox.html"><i class="fa fa-envelope"></i> <span class="nav-label">信箱 </span><span class="label label-warning pull-right">16</span></a>
-                        <ul class="nav nav-second-level">
-                            <li><a class="J_menuItem" href="#">收件箱</a>
-                            </li>
-                            <li><a class="J_menuItem" href="#">查看邮件</a>
-                            </li>
-                            <li><a class="J_menuItem" href="#">写信</a>
-                            </li>
-                        </ul>
-                    </li>
-
-
                 </ul>
             </div>
         </nav>
@@ -85,61 +73,8 @@
             <div class="row border-bottom">
                 <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
                     <div class="navbar-header"><a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                        <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
-                            <div class="form-group">
-                                <input type="text" placeholder="请输入您需要查找的内容 …" class="form-control" name="top-search" id="top-search">
-                            </div>
-                        </form>
                     </div>
                     <ul class="nav navbar-top-links navbar-right">
-                        <li class="dropdown">
-                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                <i class="fa fa-envelope"></i> <span class="label label-warning">3</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-messages">
-                                <li class="divider"></li>
-                                <li>
-                                    <div class="text-center link-block">
-                                        <a class="J_menuItem" href="mailbox.html">
-                                            <i class="fa fa-envelope"></i> <strong> 查看所有消息</strong>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="dropdown">
-                            <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
-                            </a>
-                            <ul class="dropdown-menu dropdown-alerts">
-                                <li>
-                                    <a href="mailbox.html">
-                                        <div>
-                                            <i class="fa fa-envelope fa-fw"></i> 您有16条未读消息
-                                            <span class="pull-right text-muted small">4分钟前</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <a href="profile.html">
-                                        <div>
-                                            <i class="fa fa-qq fa-fw"></i> 3条新回复
-                                            <span class="pull-right text-muted small">12分钟钱</span>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li>
-                                    <div class="text-center link-block">
-                                        <a class="J_menuItem" href="notifications.html">
-                                            <strong>查看所有 </strong>
-                                            <i class="fa fa-angle-right"></i>
-                                        </a>
-                                    </div>
-                                </li>
-                            </ul>
-                        </li>
                         <li class="dropdown hidden-xs">
                             <a class="right-sidebar-toggle" aria-expanded="false">
                                 <i class="fa fa-tasks"></i> 主题
@@ -153,7 +88,7 @@
                 </button>
                 <nav class="page-tabs J_menuTabs">
                     <div class="page-tabs-content">
-                        <a href="AllMessage?id=${userLogin.id }" class="active J_menuTab" data-id="AllMessage">全部动态</a>
+                        <a href="javascript:;" class="active J_menuTab" data-id="AllMessage">全部动态</a>
                     </div>
                 </nav>
                 <button class="roll-nav roll-right J_tabRight"><i class="fa fa-forward"></i>
@@ -172,7 +107,7 @@
                         </li>
                     </ul>
                 </div>
-                <a href="login.html" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
+                <a href="Login" class="roll-nav roll-right J_tabExit"><i class="fa fa fa-sign-out"></i> 退出</a>
             </div>
             <div class="row J_mainContent" id="content-main">
                 <iframe class="J_iframe" name="iframe0" width="100%" height="100%" src="AllMessage?id=${userLogin.id }" frameborder="0" data-id="AllMessage" seamless></iframe>
@@ -272,31 +207,6 @@
             </div>
         </div>
         <!--右侧边栏结束-->
-        <!--mini聊天窗口开始-->
-        <div class="small-chat-box fadeInRight animated">
-
-            <div class="heading" draggable="true">
-            </div>
-
-            <div class="content">
-
-            </div>
-            <div class="form-chat">
-                <div class="input-group input-group-sm">
-                    <input type="text" class="form-control"> <span class="input-group-btn"> <button
-                        class="btn btn-primary" type="button">发送
-                </button> </span>
-                </div>
-            </div>
-
-        </div>
-        <div id="small-chat">
-            <span class="badge badge-warning pull-right">5</span>
-            <a class="open-small-chat">
-                <i class="fa fa-comments"></i>
-
-            </a>
-        </div>
     </div>
     <script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

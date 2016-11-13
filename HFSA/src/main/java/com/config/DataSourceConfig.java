@@ -26,7 +26,7 @@ public class DataSourceConfig {
 			dataSource.setPassword("5221");
 		} else {
 			//gaoxy 修改个人配置区域
-			dataSource.setUrl("jdbc:mysql://localhost:3306/HFSA");
+			dataSource.setUrl("jdbc:mysql://localhost:3306/HFSA?character=utf8");
 			dataSource.setUsername("root");
 			dataSource.setPassword("251314");
 		}

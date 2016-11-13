@@ -15,97 +15,37 @@
 <body class="gray-by">
 	<div class="wrapper wrapper-content animated fadeInRight">
 		<div class="row">
-			 <div class="col-sm-4">
-                <div class="contact-box">
-                    <a href="SpecificFriend">
-                        <div class="col-sm-4">
-                            <div class="text-center">
-                                <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a2.jpg">
-                                <div class="m-t-xs font-bold">CTO</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <h3><strong>奔波儿灞</strong></h3>
-                            <p><i class="fa fa-map-marker"></i> 甘肃·兰州</p>
-                            <address>
-                            <strong>Baidu, Inc.</strong><br>
-                            E-mail:xxx@baidu.com<br>
-                            Weibo:<a href="default.htm">http://weibo.com/xxx</a><br>
-                            <abbr title="Phone">Tel:</abbr> (123) 456-7890
-                        </address>
-                        </div>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="contact-box">
-                    <a href="SpecificFriend">
-                        <div class="col-sm-4">
-                            <div class="text-center">
-                                <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a1.jpg">
-                                <div class="m-t-xs font-bold">营销总监</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <h3><strong>灞波儿奔</strong></h3>
-                            <p><i class="fa fa-map-marker"></i> 四川·成都</p>
-                            <address>
-                            <strong>Taobao, Inc.</strong><br>
-                            E-mail:xxx@taobao.com<br>
-                            Weibo:<a href="default.htm">http://weibo.com/xxx</a><br>
-                            <abbr title="Phone">Tel:</abbr> (123) 456-7890
-                        </address>
-                        </div>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-            </div>
-            <div class="col-sm-4">
-                <div class="contact-box">
-                    <a href="SpecificFriend">
-                        <div class="col-sm-4">
-                            <div class="text-center">
-                                <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a3.jpg">
-                                <div class="m-t-xs font-bold">Marketing manager</div>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <h3><strong>Monica Smith</strong></h3>
-                            <p><i class="fa fa-map-marker"></i> 上海市闵行区绿地科技岛广场A座2606室</p>
-                            <address>
-                            <strong>Baidu, Inc.</strong><br>
-                            E-mail:xxx@baidu.com<br>
-                            Weibo:<a href="default.htm">http://weibo.com/xxx</a><br>
-                            <abbr title="Phone">Tel:</abbr> (123) 456-7890
-                        </address>
-                        </div>
-                        <div class="clearfix"></div>
-                    </a>
-                </div>
-            </div>
+			 <c:forEach items="${friendList}" var="friend">
+		 		<div class="col-sm-6">
+		        	<div class="contact-box">
+						<div class="pull-right social-action dropdown">
+							<button data-toggle="dropdown" class="dropdown-toggle btn-white">
+								<i class="fa fa-angle-down"></i>
+							</button>
+							<ul class="dropdown-menu m-t-xs">
+								<li><a href="delFriends?id=${userLogin.id }&name=${friend.friendname }">删除好友</a></li>
+							</ul>
+						</div>
+						<a href="SpecificFriend?id=${userLogin.id }&friendName=${friend.friendname }">
+		                    <div class="col-sm-4">
+		                        <div class="text-center">
+		                            <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a3.jpg">
+		                            <div class="m-t-xs font-bold">${friend.friendname }</div>
+		                        </div>
+		                    </div>
+		                    <div class="col-sm-8">
+		                        <h3><strong>${friend.id }</strong></h3>
+		                        Weibo:<a href="${friend.friendweibo }" target="_Blank">${friend.friendweibo }</a><br>
+		                        TianYa:<a href="${friend.friendtianya }" target="_Blank">${friend.friendtianya }</a><br>
+		                    </div>
+		                    <div class="clearfix"></div>
+		                </a>
+		            </div>
+		        </div>
+		  	</c:forEach>    
 		</div>
 	</div>
-<%-- 	<c:forEach items="${FriendsList}" var="friend"> --%>
-<!--  		<div class="col-sm-4"> -->
-<!--         	<div class="contact-box"> -->
-<!--                 <a href=""> -->
-<!--                     <div class="col-sm-4"> -->
-<!--                         <div class="text-center"> -->
-<!--                             <img alt="image" class="img-circle m-t-xs img-responsive" src="img/a3.jpg"> -->
-<%--                             <div class="m-t-xs font-bold">${friend.name }</div> --%>
-<!--                         </div> -->
-<!--                     </div> -->
-<!--                     <div class="col-sm-8"> -->
-<%--                         <h3><strong>${friend.realname }</strong></h3> --%>
-<%--                         Weibo:<a href="default.htm">${friend.WeiBoNickName }</a><br> --%>
-<%--                         TianYa:<a href="default.htm">${friend.TianYaUrl }</a><br> --%>
-<!--                     </div> -->
-<!--                     <div class="clearfix"></div> -->
-<!--                 </a> -->
-<!--             </div> -->
-<!--         </div> -->
-<%--   	</c:forEach> --%>
+	
 
 	<script src="js/jquery.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

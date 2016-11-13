@@ -1,5 +1,7 @@
 package com.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.po.Result;
 import com.service.UserServer;
 
 
@@ -48,8 +51,11 @@ public class PageController {
 	public @ResponseBody 
 	ModelAndView ShowAllMessage(@RequestParam("id")int id){
 		ModelAndView model = new ModelAndView();
+//		System.out.println('1');
+//		System.out.println(id);
 		System.out.println('1');
-		System.out.println(id);
+		List<Result> l = userServer.latestMov(id);
+		System.out.println(l.get(1).getName());
 		request.setAttribute("friendsStatus", userServer.latestMov(id));
 		model.setViewName("AllMessage");
 		return model;
@@ -57,8 +63,11 @@ public class PageController {
 	
 	@RequestMapping(value="/FriendsList")
 	public @ResponseBody 
-	ModelAndView ShowFriednsList(){
+	ModelAndView ShowFriednsList(@RequestParam("id")int id){
 		ModelAndView model = new ModelAndView();
+		System.out.println('1');
+		System.out.println(id);
+		request.setAttribute("friendList", userServer.getFriendList(id));
 		model.setViewName("FriendsList");
 		return model;
 	}
@@ -73,9 +82,24 @@ public class PageController {
 	
 	@RequestMapping(value="/SpecificFriend")
 	public @ResponseBody 
-	ModelAndView test(){
+	ModelAndView SpecificFriend(@RequestParam("id")int id,@RequestParam("friendName")String friendName){
 		ModelAndView model = new ModelAndView();
+		System.out.println('1');
+		System.out.println(id);
+		System.out.println(friendName);
+		List<Result> l = userServer.getOneFrinedMov(id, friendName);
+		System.out.println(l.size());
+		request.setAttribute("specificFriend", userServer.getOneFrinedMov(id, friendName));
 		model.setViewName("SpecificFriend");
 		return model;
 	}
+	
+	@RequestMapping(value="/test")
+	public @ResponseBody 
+	ModelAndView test(){
+		ModelAndView model = new ModelAndView();
+		model.setViewName("test");
+		return model;
+	}
+	
 }
