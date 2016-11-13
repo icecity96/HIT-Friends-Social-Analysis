@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.po.Friends;
+import com.po.Result;
 import com.po.User;
 import com.service.AuthorizeService;
 import com.service.TianyaService;
@@ -194,6 +195,15 @@ public class UserController {
 //	void getAllFriend(@RequestParam("id")int id) {
 //		request.setAttribute("friendList", userServer.getFriendList(id));
 //	}
+	
+	@RequestMapping(value="/onefriendmov",method={RequestMethod.POST,RequestMethod.GET})
+	public @ResponseBody
+	void getOneFriendMov(@RequestParam("id")int id,@RequestParam("friendName")String friendName) {
+		List<Result> friendMov = userServer.getOneFrinedMov(id, friendName);
+		request.setAttribute(friendName+"mov", friendMov);
+		request.setAttribute("frendtopic", userServer.getFriendTopic(friendMov));
+		request.setAttribute("weekMov", userServer.getWeekMov(friendMov));
+	}
 	
 	//@Scheduled(cron="0 3 */1 * * *")
 	public void SpiderForce() throws FileNotFoundException, ClassNotFoundException, IOException {

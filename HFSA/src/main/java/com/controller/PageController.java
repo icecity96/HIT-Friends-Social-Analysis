@@ -90,6 +90,17 @@ public class PageController {
 		List<Result> l = userServer.getOneFrinedMov(id, friendName);
 		System.out.println(l.size());
 		request.setAttribute("specificFriend", userServer.getOneFrinedMov(id, friendName));
+		List<Result> friendMov = userServer.getOneFrinedMov(id, friendName);
+		int[] topic = userServer.getFriendTopic(friendMov);
+		int maxNum = topic[0];
+		for(int i=1;i<topic.length;i++){
+			if(topic[i] > maxNum){
+				maxNum = topic[i];
+			}
+		}
+		request.setAttribute("maxNum", maxNum);
+		request.setAttribute("frendtopic", userServer.getFriendTopic(friendMov));
+		request.setAttribute("weekMov", userServer.getWeekMov(friendMov));
 		model.setViewName("SpecificFriend");
 		return model;
 	}
