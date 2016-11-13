@@ -13,13 +13,13 @@ public interface FriendsDao {
 	 * @select 最新十条动态，不够十条就返回全部 并按照时间排序
 	 */
 	
-	@Select("select url,time,context,type,topic from weiboandtianya inner join wturl wt on wt.weibourl=url or wt.tianyaurl=url order by time desc limit 100")
+	@Select("select url,time,context,type,topic from weiboandtianya inner join wturl wt on (wt.weibourl=url or wt.tianyaurl=url) order by time desc limit 100")
 	public List<weiboAndtianya> latestMovement();
 	//返回某人所有朋友动态所用//
-	@Insert("insert into wturl select friendweibo,friendtianya from friends where id=#{id}")
+	@Insert("insert into wturl select friendweibo,friendtianya,friendname from friends where id=#{id}")
 	public void findfriend(@Param("id")long id);
 	//返回某个特定朋友//
-	@Insert("insert into wturl select friendweibo,friendtianya from friends where id=#{id} and friendname=#{friendname}")
+	@Insert("insert into wturl select friendweibo,friendtianya,friendname from friends where id=#{id} and friendname=#{friendname}")
 	public void findOnefriend(@Param("id")long id,@Param("friendname")String friendname);
 	//----------//
 	@Delete("delete from wturl")
