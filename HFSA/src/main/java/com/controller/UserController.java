@@ -4,8 +4,6 @@ package com.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.po.Friends;
-import com.po.Result;
 import com.po.User;
 import com.service.TianyaService;
 import com.service.UserServer;
@@ -40,7 +37,7 @@ public class UserController {
 	@RequestMapping("/")
 	public ModelAndView hello() {
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("test");
+		modelAndView.setViewName("Login");
 		return modelAndView;
 	}
 	//TODO:gaoxy
@@ -66,7 +63,7 @@ public class UserController {
 		if (rsUser==null) {
 			//TODO:gaoxy
 			model.addObject("msg", "账号密码错误");
-			model.setViewName("Login_v2");
+			model.setViewName("Login");
 			return model;
 		} else {
 			rsUser.setPassword("default");
@@ -107,13 +104,13 @@ public class UserController {
 			modelAndView.addObject("msg", "用户名或邮箱已被占用");
 			modelAndView.setViewName("false");
 		default:
-			modelAndView.addObject("userIdRegister", userId);
+			session.setAttribute("userLogin", user);
 			modelAndView.setViewName("HomePage");
 		}
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/addFriends",method={RequestMethod.POST,RequestMethod.GET})
+	@RequestMapping(value="/tianjia",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody 
 	void addFriends(@RequestParam("id")int id,
 						@RequestParam("name")String name,
@@ -136,36 +133,12 @@ public class UserController {
 	
 	@RequestMapping(value="/delFriends",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody 
-	void delFriends(@RequestParam("id")int id,@RequestParam("name")String name) {
+	ModelAndView delFriends(@RequestParam("id")int id,@RequestParam("name")String name) {
 		userServer.delFriend(id, name);
-	}
-	
-	/**
-	 * 返回用户所有的好友的部分动态
-	 * @param id
-	 */
-	@RequestMapping(value="/lastesMovements",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody 
-	void lastesMovements(@RequestParam("id")int id) {
-		request.setAttribute("friendsStatus", userServer.latestMov(id));
-	}
-	
-	/**
-	 * 获取特定好友的所有动态
-	 */
-	@RequestMapping(value="/onefriendmov",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody
-	void getOneFriendMov(@RequestParam("id")int id,@RequestParam("friendName")String friendName) {
-		List<Result> friendMov = userServer.getOneFrinedMov(id, friendName);
-		request.setAttribute(friendName+"mov", friendMov);
-		request.setAttribute("frendtopic", userServer.getFriendTopic(friendMov));
-		request.setAttribute("weekMov", userServer.getWeekMov(friendMov));
-	}
-	
-	@RequestMapping(value="/friendList",method={RequestMethod.POST,RequestMethod.GET})
-	public @ResponseBody
-	void getAllFriend(@RequestParam("id")int id) {
+		ModelAndView model = new ModelAndView();
 		request.setAttribute("friendList", userServer.getFriendList(id));
+		model.setViewName("FriendsList");
+		return model;
 	}
 	
 	//@Scheduled(cron="0 3 */1 * * *")

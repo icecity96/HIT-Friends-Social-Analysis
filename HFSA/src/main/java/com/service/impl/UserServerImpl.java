@@ -1,17 +1,15 @@
 package com.service.impl;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bytedeco.javacpp.opencv_core.CvScalar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -145,26 +143,17 @@ public class UserServerImpl implements UserServer {
 	}
 
 	@Override
-	public int[] getWeekMov(List<Result> friendMov) {
+	public int[] getWeekMov(List<Result> friendMov) throws ParseException {
 		int[] result = new int[7];
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyymmdd");
 		Date date = new Date();
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(date);
-		calendar.add(calendar.DAY_OF_YEAR, -7);
-		int p = calendar.get(calendar.DAY_OF_YEAR);
-		date = calendar.getTime();
 		for (Result mov : friendMov) {
-			String time = mov.getStatu().getTime();
-			Date movdate = new Date(time);
-			calendar.setTime(movdate);
-			calendar.add(calendar.DAY_OF_YEAR, 0);
-			int pmov = calendar.get(calendar.DAY_OF_YEAR);
-			movdate = calendar.getTime();
-			if (movdate.before(date)) {
+			Date newDate = simpleDateFormat.parse(mov.getStatu().getTime().substring(0, 8));
+			int day = (int)(date.getTime() - newDate.getTime())/(24*60*60*1000);
+			if (day > 6) {
 				break;
-			} else {
-				result[pmov-p]++;
 			}
+			result[day]++;
 		}
 		return result;
 	}
