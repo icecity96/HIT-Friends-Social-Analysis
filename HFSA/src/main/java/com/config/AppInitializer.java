@@ -6,6 +6,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.request.RequestContextListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -24,6 +25,8 @@ public class AppInitializer implements WebApplicationInitializer{
 		ctx.setServletContext(container);
 		
 		ServletRegistration.Dynamic servlet = container.addServlet("dispatcher", new DispatcherServlet(ctx));
+		
+		container.addListener(RequestContextListener.class);
 		
 		servlet.setLoadOnStartup(1);
 		servlet.addMapping("/");

@@ -21,14 +21,13 @@ $ git clone https://github.com/icecity96/HIT-Friends-Social-Analysis
 
 **Windows**用户点击[此处](https://github.com/icecity96/HIT-Friends-Social-Analysis/archive/master.zip)下载项目压缩包后解压，再用`Eclipse`打开项目即可。
 
+**注意事项**：确保在默认目录下安装了**firefox** && **geckodriver**,本项目测试环境所用的geckodriver版本为**0.11.1**,firefox版本为**49.0.2**,若因依赖关系导致问题，本项目不负责任，所以为避免此类问题，请将你的geckdriver和firefox升级至对应版本。
 ##Contribution
 1. Fork it!
 2. Create your feature branch: `git checkout -b my-new-feature`
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
-
-NOTE:提交的代码请确保遵循谷歌开源代码风格！！！！
 
 ##License
 [GPLv3](License.md)
