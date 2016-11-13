@@ -87,7 +87,11 @@ public class UserServerImpl implements UserServer {
 			friendsDao.allFriends((int)friend.getId()).contains(friend.getFriendname())) {
 			return 0;
 		}
-		friendsDao.insertFriend(friend);
+		try {
+			friendsDao.insertFriend(friend);
+		} catch (Exception e) {
+			return 0;
+		}
 		return 1;
 	}
 
@@ -145,15 +149,20 @@ public class UserServerImpl implements UserServer {
 	@Override
 	public int[] getWeekMov(List<Result> friendMov) throws ParseException {
 		int[] result = new int[7];
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyymmdd");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		for (Result mov : friendMov) {
-			Date newDate = simpleDateFormat.parse(mov.getStatu().getTime().substring(0, 8));
-			int day = (int)(date.getTime() - newDate.getTime())/(24*60*60*1000);
+			Date newDate = simpleDateFormat.parse(mov.getStatu().getTime().substring(0, 10));
+			System.out.println(date.getTime() + " "+ newDate.getTime());
+			long day = (date.getTime() - newDate.getTime())/(24*60*60*1000);
+			System.out.println(day);
 			if (day > 6) {
 				break;
 			}
-			result[day]++;
+			result[6-(int)day]++;
+		}
+		for (int i : result) {
+			System.out.println(i);
 		}
 		return result;
 	}
