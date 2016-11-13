@@ -17,7 +17,7 @@
 </head>
 <body>
 	<div class="form-group">
-		<div class="text-center">				
+		<div class="text-center">			
 			<div class="form-group">
 				<input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="FriendName" required autofocus/>
 			</div>
@@ -36,6 +36,7 @@
 			</div>
 		</div>
 	</div>
+
 	
 	<script type="text/javascript">
 		function ajaxTest(){
@@ -50,11 +51,14 @@
 					tianyaurl:$("#tianyaurl").val()
 				},
 				dataType:"json",
-				success:function(){
-					window.location.href="FriendsList.jsp";
-				},
 				error:function(){
-					alert("error");
+					if($("#msg") == "fail")
+					{
+						alert("error");
+					}
+					else{
+						window.location.href="FriendsList?id="+id;
+					}
 				}
 			})
 		}
