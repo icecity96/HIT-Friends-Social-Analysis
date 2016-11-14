@@ -17,21 +17,37 @@
 </head>
 <body>
 	<div class="form-group">
-		<div class="text-center">			
+		<div class="form-horizontal" style="margin-top: 10%">
 			<div class="form-group">
-				<input type="text" name="name" id="name" tabindex="1" class="form-control" placeholder="FriendName" required autofocus/>
+				<label class="col-sm-3 control-label">好友名：</label>
+
+				<div class="col-sm-6">
+					<input type="text" name="name" id="name" tabindex="1"
+						class="form-control" placeholder="FriendName" required autofocus />
+					<span class="help-block m-b-none">你可以为你的好友起一个名字</span>
+				</div>
 			</div>
 			<div class="form-group">
-				<input type="微博地址" name="weibourl" id="weibourl" tabindex="2" class="form-control" placeholder="微博昵称"required autofocus/>
+				<label class="col-sm-3 control-label">微博主页url：</label>
+
+				<div class="col-sm-6">
+					<input type="text" name="weibourl" id="weibourl" tabindex="2"
+						class="form-control" placeholder="微博主页url" />
+				</div>
 			</div>
 			<div class="form-group">
-				<input type="天涯地址" name="tianyaurl" id="tianyaurl" tabindex="3" class="form-control" placeholder="天涯主页"/>
+				<label class="col-sm-3 control-label">天涯主页url：</label>
+
+				<div class="col-sm-6">
+					<input type="text" name="tianyaurl" id="tianyaurl" tabindex="3"
+						class="form-control" placeholder="天涯主页url" />
+				</div>
 			</div>
 			<div class="form-group">
-				<div class="row">
-					<div class="col-sm-6 col-sm-offset-3">
-						<input type="submit" name="add-submit" id="add-submit" tabindex="4" class="form-control btn btn-login" value="添加" onclick="ajaxTest();"/>
-					</div>
+				<div class="col-sm-offset-3 col-sm-6">
+					<input type="submit" name="add-submit" id="add-submit" tabindex="4"
+						class="form-control btn btn-login" value="添加"
+						onclick="ajaxTest();" />
 				</div>
 			</div>
 		</div>
@@ -39,26 +55,20 @@
 
 	
 	<script type="text/javascript">
-		function ajaxTest(){
+		function ajaxTest() {
 			var id = ${userLogin.id };
 			$.ajax({
-				type:"post",
-				url:"tianjia",
-				data:{
-					id:id,
-					name:$("#name").val(),
-					weibourl:$("#weibourl").val(),
-					tianyaurl:$("#tianyaurl").val()
+				type : "post",
+				url : "tianjia",
+				data : {
+					id : id,
+					name : $("#name").val(),
+					weibourl : $("#weibourl").val(),
+					tianyaurl : $("#tianyaurl").val()
 				},
-				dataType:"json",
-				error:function(){
-					if($("#msg") == "fail")
-					{
-						alert("error");
-					}
-					else{
-						window.location.href="FriendsList?id="+id;
-					}
+				dataType : "json",
+				error : function() {
+					window.location.href = "FriendsList?id=" + id;
 				}
 			})
 		}
