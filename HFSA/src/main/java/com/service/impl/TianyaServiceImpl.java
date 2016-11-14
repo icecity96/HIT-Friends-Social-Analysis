@@ -74,12 +74,16 @@ public class TianyaServiceImpl implements TianyaService{
 					"#home_wrapper > div.main-area > div.moudle-timeline.animated.slideInLeft"));
 			List<WebElement> status = timeline.findElements(By.className("feed-content-item"));
 			for (WebElement statu : status) {
+				try {
 				String timeString = statu.findElement(By.cssSelector("a[target*='_blank']")).getText();
 				timeString = StringUtil.parseTianYatime(timeString);
 				String context = statu.findElement(By.className("article")).getText();
 				int topic = -1;
 				topic = StringUtil.getTopic(context);
 				weiboAndtianyas.add(new weiboAndtianya(url,timeString,context,"tianya",topic));
+				} catch (Exception e) {
+					break;
+				}
 			}
 		} catch (ElementNotFoundException e) {
 			return null;
