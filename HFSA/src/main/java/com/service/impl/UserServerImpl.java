@@ -87,11 +87,8 @@ public class UserServerImpl implements UserServer {
 			friendsDao.allFriends((int)friend.getId()).contains(friend.getFriendname())) {
 			return 0;
 		}
-		try {
-			friendsDao.insertFriend(friend);
-		} catch (Exception e) {
-			return 0;
-		}
+		
+		friendsDao.insertFriend(friend);
 		return 1;
 	}
 
