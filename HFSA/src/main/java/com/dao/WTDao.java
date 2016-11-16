@@ -23,7 +23,7 @@ public interface WTDao {
 	 * 
 	 * @insert 单条微博（重复的无法插入，捕捉DuplicateKeyException异常即可。） 
 	 */
-	@Insert("insert into weiboandtianya values(#{wt.url},#{wt.time},#{wt.context},#{wt.type},#{wt.topic})")
+	@Insert("insert ignore into weiboandtianya values(#{wt.url},#{wt.time},#{wt.context},#{wt.type},#{wt.topic})")
 	public void insertone(@Param("wt")weiboAndtianya wt);
 	
 }
