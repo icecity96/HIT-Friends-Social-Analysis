@@ -34,6 +34,7 @@ public class WeiboServiceImpl implements WeiboService{
 		//PhantomJSDriver driver = new PhantomJSDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		for (String url : urList) {
+			if(url.isEmpty()) continue;
 			List<weiboAndtianya> weiboAndtianyas2 = weiboSingnal(driver, url);
 			weiboAndtianyas.addAll(weiboAndtianyas2);
 		}
@@ -46,6 +47,7 @@ public class WeiboServiceImpl implements WeiboService{
 				continue;
 			}	
 		}
+		return;
 	}
 	
 	/**

@@ -38,6 +38,7 @@ public class TianyaServiceImpl implements TianyaService{
 		FirefoxDriver driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		for (String url : tianYaURL) {
+			if(url.isEmpty()) continue;
 			List<weiboAndtianya> weiboAndtianyas2 = tianyaSingnal(driver, url);
 			weiboAndtianyas.addAll(weiboAndtianyas2);
 		}
