@@ -17,7 +17,7 @@ public interface WTDao {
 	 * 
 	 * @return 所有不重复的天涯url
 	 */
-	@Select("select distinct friendweibo from friends")
+	@Select("select distinct friendtianya from friends")
 	List<String> ReturnTianyaUrl();
 	/**
 	 * 
