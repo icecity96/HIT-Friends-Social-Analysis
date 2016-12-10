@@ -25,7 +25,6 @@ public class TianyaServiceImpl implements TianyaService{
 	@Autowired
 	private WTDao wtDao;
 	@Override
-	//@Scheduled(cron="0 0 */1 * *")
 	public void TianyaSpider() throws FileNotFoundException, ClassNotFoundException, IOException {
 		List<String> tianYaURL = wtDao.ReturnTianyaUrl();
 		//空直接退出

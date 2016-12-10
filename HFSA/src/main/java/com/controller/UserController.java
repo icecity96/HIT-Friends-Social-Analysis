@@ -41,7 +41,7 @@ public class UserController {
 		modelAndView.setViewName("Login");
 		return modelAndView;
 	}
-	//TODO:gaoxy
+
 	@RequestMapping(value="/HomePage",method={RequestMethod.POST, RequestMethod.GET})
 	public @ResponseBody 
 	ModelAndView login(@RequestParam("name")String id,
@@ -62,7 +62,6 @@ public class UserController {
 		User rsUser = userServer.login(user);
 		ModelAndView model = new ModelAndView();
 		if (rsUser==null) {
-			//TODO:gaoxy
 			model.addObject("msg", "账号密码错误");
 			model.setViewName("Login");
 			return model;
@@ -74,7 +73,6 @@ public class UserController {
 		return model;
 	}
 	
-	//TODO:gaoxy
 	@RequestMapping(value="/register",method={RequestMethod.POST,RequestMethod.GET})
 	public @ResponseBody 
 	ModelAndView userRegister(@RequestParam("nickname")String nickname,
@@ -84,7 +82,6 @@ public class UserController {
 		ModelAndView modelAndView = new ModelAndView();
 		//检查两次输入密码是否相同
 		if(!password.equals(confirmPassword)) {
-			//TODO:gaoxy
 			modelAndView.addObject("msg", "两次密码不同");
 			modelAndView.setViewName("false");
 			return modelAndView;
@@ -96,7 +93,6 @@ public class UserController {
 		user.setNickname(nickname);
 		//用户注册
 		int userId = userServer.register(user);
-		//TODO:gaoxy
 		switch (userId) {
 		case -1:
 			modelAndView.addObject("msg", "密码格式错误");

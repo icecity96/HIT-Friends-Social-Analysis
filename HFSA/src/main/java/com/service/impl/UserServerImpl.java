@@ -30,7 +30,6 @@ public class UserServerImpl implements UserServer {
 	private FriendsDao friendsDao;
 	@Override
 	public User login(User user) {
-		// TODO Auto-generated method stub
 		Map<String, Object> param = new HashMap<String,Object>();
 		param.put("nickname", user.getNickname());
 		param.put("email", user.getEmail());
@@ -92,6 +91,7 @@ public class UserServerImpl implements UserServer {
 		return 1;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Result> latestMov(long id)
 	{
@@ -107,6 +107,7 @@ public class UserServerImpl implements UserServer {
 		return results;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Result> getOneFrinedMov(long id, String friendName) {
 		friendsDao.findOnefriend(id, friendName);

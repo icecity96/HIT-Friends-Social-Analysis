@@ -23,7 +23,6 @@ public class WeiboServiceImpl implements WeiboService{
 	@Autowired
 	private WTDao wtDao;
 	@Override
-	//@Scheduled(cron="0 0 */1 * *")	//Hope this will exec per hour
 	public void weiboSpider() throws FileNotFoundException, ClassNotFoundException, IOException {
 		List<String> urList = wtDao.ReturnWeiboUrl();
 		if (urList.isEmpty()) {
@@ -31,7 +30,6 @@ public class WeiboServiceImpl implements WeiboService{
 		}
 		List<weiboAndtianya> weiboAndtianyas = new ArrayList<weiboAndtianya>();
 		FirefoxDriver driver = new FirefoxDriver();
-		//PhantomJSDriver driver = new PhantomJSDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		for (String url : urList) {
 			List<weiboAndtianya> weiboAndtianyas2 = weiboSingnal(driver, url);

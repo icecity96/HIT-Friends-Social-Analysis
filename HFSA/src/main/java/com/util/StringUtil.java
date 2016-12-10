@@ -126,6 +126,7 @@ public class StringUtil {
 	 * @throws FileNotFoundException 
 	 * @throws ClassNotFoundException 
 	 */
+	@SuppressWarnings("unchecked")
 	public static int getTopic(String context) throws FileNotFoundException, IOException, ClassNotFoundException {
 		if (flag == false) {
 			//load phi
@@ -141,7 +142,7 @@ public class StringUtil {
 			ObjectInputStream word2idInputStream = new ObjectInputStream(StringUtil.class.getClassLoader().getResourceAsStream("data/word2idMap"));
 			word2idMap = (Map<String, Integer>)word2idInputStream.readObject();
 			word2idInputStream.close();
-			 flag = true;
+			flag = true;
 		}	
 		Vocabulary vocabulary = new Vocabulary(word2idMap, id2wordMap);
 		//finish construct vocabulary
