@@ -52,8 +52,6 @@ public class PageController {
 	public @ResponseBody 
 	ModelAndView ShowAllMessage(@RequestParam("id")int id){
 		ModelAndView model = new ModelAndView();
-		System.out.println('1');
-		List<Result> l = userServer.latestMov(id);
 		request.setAttribute("friendsStatus", userServer.latestMov(id));
 		model.setViewName("AllMessage");
 		return model;
@@ -63,8 +61,6 @@ public class PageController {
 	public @ResponseBody 
 	ModelAndView ShowFriednsList(@RequestParam("id")int id){
 		ModelAndView model = new ModelAndView();
-		System.out.println('1');
-		System.out.println(id);
 		request.setAttribute("friendList", userServer.getFriendList(id));
 		model.setViewName("FriendsList");
 		return model;
@@ -82,9 +78,6 @@ public class PageController {
 	public @ResponseBody 
 	ModelAndView SpecificFriend(@RequestParam("id")int id,@RequestParam("friendName")String friendName) throws ParseException{
 		ModelAndView model = new ModelAndView();
-		System.out.println('1');
-		System.out.println(id);
-		System.out.println(friendName);
 		List<Result> l = userServer.getOneFrinedMov(id, friendName);
 		System.out.println(l.size());
 		request.setAttribute("specificFriend", userServer.getOneFrinedMov(id, friendName));
