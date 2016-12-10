@@ -35,7 +35,7 @@
                                 </span>
                             </a>
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a class="J_menuItem" href="ProFile">个人资料</a>
+                           		<li><a href="#">个人资料</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li><a href="Login">安全退出</a>

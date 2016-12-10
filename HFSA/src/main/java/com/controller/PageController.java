@@ -31,14 +31,6 @@ public class PageController {
 	@Autowired
 	private HttpSession session;
 	
-	@RequestMapping(value="/ProFile")
-	public @ResponseBody 
-	ModelAndView ProFile(){
-		ModelAndView model = new ModelAndView();
-		model.setViewName("ProFile");
-		return model;
-	}
-	
 	@RequestMapping(value="/Login")
 	public @ResponseBody 
 	ModelAndView BacktoLogin(){
@@ -104,13 +96,4 @@ public class PageController {
 		model.setViewName("SpecificFriend");
 		return model;
 	}
-	
-	@RequestMapping(value="/test")
-	public @ResponseBody 
-	ModelAndView test(){
-		ModelAndView model = new ModelAndView();
-		model.setViewName("test");
-		return model;
-	}
-	
 }

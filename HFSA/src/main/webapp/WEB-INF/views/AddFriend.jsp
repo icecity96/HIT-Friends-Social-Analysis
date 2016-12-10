@@ -53,7 +53,7 @@
 		</div>
 	</div>
 
-	
+
 	<script type="text/javascript">
 		function ajaxTest() {
 			var id = ${userLogin.id };
