@@ -95,13 +95,4 @@ public class PageController {
 		model.setViewName("SpecificFriend");
 		return model;
 	}
-	
-	@RequestMapping(value="/test")
-	public @ResponseBody 
-	ModelAndView test(){
-		ModelAndView model = new ModelAndView();
-		model.setViewName("test");
-		return model;
-	}
-	
 }

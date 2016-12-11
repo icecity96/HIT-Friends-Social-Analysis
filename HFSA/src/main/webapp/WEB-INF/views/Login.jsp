@@ -26,13 +26,11 @@
 	                        <h1>HFSA</h1>
 	                    </div>
 	                    <div class="m-b"></div>
-	                    <h4>欢迎使用 <strong>HFSA</strong></h4>
+	                    <h3>欢迎使用 <strong>HFSA</strong></h3>
 	                    <ul class="m-b">
-	                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势一</li>
-	                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势二</li>
-	                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势三</li>
-	                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势四</li>
-	                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 优势五</li>
+	                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 多社交平台集中管理</li>
+	                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 大数据更懂你的好友</li>
+	                        <li><i class="fa fa-arrow-circle-o-right m-r-xs"></i> 文字表格多种展示</li>
 	                    </ul>
 	                    <strong>还没有账号？ <a href="#">立即注册&raquo;</a></strong>
 	                </div>
@@ -47,10 +45,10 @@
 		                <div class="panel-heading">
 			                <div class="row">
 			                	<div class="col-xs-6">
-									<a href="#" class="active" id="login-form-link">Sign in</a>
+									<a href="#" class="active" id="login-form-link">登录</a>
 								</div>
 								<div class="col-xs-6">
-									<a href="#" id="register-form-link">Sign up</a>
+									<a href="#" id="register-form-link">注册</a>
 								</div>
 							</div>
 		                </div>
@@ -76,7 +74,7 @@
 										<div class="form-group">
 											<div class="row">
 												<div class="col-sm-6 col-sm-offset-3">
-													<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Sign In">
+													<input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="登录">
 												</div>
 											</div>
 										</div>
@@ -92,21 +90,21 @@
 									</form>
 									<form id="register-form" action="register" method="post" role="form" style="display: none;">
 										<div class="form-group">
-											<input type="text" name="nickname" id="nickname" tabindex="1" class="form-control" placeholder="Username" value="">
+											<input type="text" name="nickname" id="nickname" tabindex="1" class="form-control" placeholder="Username" required autofocus>
 										</div>
 										<div class="form-group">
-											<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="">
+											<input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" required autofocus>
 										</div>
 										<div class="form-group">
-											<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+											<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required autofocus>
 										</div>
 										<div class="form-group">
-											<input type="password" name="confirmPassword" id="confirmPassword" tabindex="2" class="form-control" placeholder="Confirm Password">
+											<input type="password" name="confirmPassword" id="confirmPassword" tabindex="2" class="form-control" placeholder="Confirm Password" required autofocus>
 										</div>
 										<div class="form-group">
 											<div class="row">
 												<div class="col-sm-6 col-sm-offset-3">
-													<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Sign up">
+													<input type="submit" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="注册">
 												</div>
 											</div>
 										</div>

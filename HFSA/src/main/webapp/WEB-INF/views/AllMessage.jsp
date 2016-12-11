@@ -40,7 +40,7 @@
 								<p>${friendstatus.statu.context }</p>
 							</div>
 							<div class="social-footer">
-								<small class="text-muted">${friendstatus.statu.type }</small>
+								<small class="text-muted">from ${friendstatus.statu.type }</small>
 							</div>
 						</div>
 					</div>
