@@ -101,7 +101,7 @@ public class UserServerImpl implements UserServer {
 		ll=friendsDao.latestMovement();
 		friendsDao.clean();
 		for (weiboAndtianya weiboAndtianya : ll) {
-			results.add(new Result(weiboAndtianya, friendsDao.FindFriendByUrl(weiboAndtianya)));
+			results.add(new Result(weiboAndtianya, friendsDao.FindFriendByUrl(weiboAndtianya,(int)id)));
 		}
 		Collections.sort(results);
 		return results;

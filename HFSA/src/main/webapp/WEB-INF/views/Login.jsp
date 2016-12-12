@@ -67,10 +67,6 @@
 										<div class="form-group">
 											<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password"required autofocus>
 										</div>
-										<div class="form-group text-center">
-											<input type="checkbox" tabindex="3" class="" name="remember" id="remember">
-											<label for="remember"> Remember Me</label>
-										</div>
 										<div class="form-group">
 											<div class="row">
 												<div class="col-sm-6 col-sm-offset-3">

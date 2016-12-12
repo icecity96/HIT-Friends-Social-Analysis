@@ -25,8 +25,8 @@ public interface FriendsDao {
 	@Delete("delete from wturl")
 	public void clean();
 	
-	@Select("select friendname from friends where friendweibo=#{mov.url} or friendtianya=#{mov.url}")
-	public String FindFriendByUrl(@Param("mov")weiboAndtianya mov);
+	@Select("select friendname from friends where id = #{id} and (friendweibo=#{mov.url} or friendtianya=#{mov.url}) ")
+	public String FindFriendByUrl(@Param("mov")weiboAndtianya mov,@Param("id")int id);
 	/**
 	 * 
 	 * @delete 好友 按照用户id和好友姓名来进行检索并删除

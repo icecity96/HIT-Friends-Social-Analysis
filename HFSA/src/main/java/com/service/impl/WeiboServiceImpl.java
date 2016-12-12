@@ -32,6 +32,9 @@ public class WeiboServiceImpl implements WeiboService{
 		FirefoxDriver driver = new FirefoxDriver();
 		driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		for (String url : urList) {
+			if (url.isEmpty()) {
+				continue;
+			}
 			List<weiboAndtianya> weiboAndtianyas2 = weiboSingnal(driver, url);
 			weiboAndtianyas.addAll(weiboAndtianyas2);
 		}
