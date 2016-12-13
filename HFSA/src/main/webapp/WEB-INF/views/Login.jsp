@@ -93,6 +93,7 @@
 										</div>
 										<div class="form-group">
 											<input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required autofocus>
+											<p>密码长度至少为8位，包含大小写字母，数字和特殊字符</p>
 										</div>
 										<div class="form-group">
 											<input type="password" name="confirmPassword" id="confirmPassword" tabindex="2" class="form-control" placeholder="Confirm Password" required autofocus>

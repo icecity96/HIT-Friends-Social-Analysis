@@ -135,7 +135,7 @@ public class UserController {
 		return model;
 	}
 	
-	@Scheduled(cron="0 48 */1 * * *")
+	@Scheduled(cron="0 0 0 */1 * *")
 	public void SpiderForce() throws FileNotFoundException, ClassNotFoundException, IOException {
 		weiboService.weiboSpider();
 		tianyaService.TianyaSpider();
