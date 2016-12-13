@@ -93,16 +93,13 @@ public class UserController {
 		user.setNickname(nickname);
 		//用户注册
 		int userId = userServer.register(user);
-		switch (userId) {
-		case -1:
-			modelAndView.addObject("msg", "密码格式错误");
-			modelAndView.setViewName("false");
-		case -2:
-			modelAndView.addObject("msg", "用户名或邮箱已被占用");
-			modelAndView.setViewName("false");
-		default:
+		if(userId > 0)
+		{
 			session.setAttribute("userLogin", user);
 			modelAndView.setViewName("HomePage");
+		} else {
+			modelAndView.addObject("msg", "密码格式错误或用户名或邮箱已被占用");
+			modelAndView.setViewName("Login");
 		}
 		return modelAndView;
 	}
